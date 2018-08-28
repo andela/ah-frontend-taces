@@ -1,4 +1,8 @@
-# Authors Haven - A Social platform for the creative at heart.
+[![Build Status](https://travis-ci.org/andela/ah-frontend-taces.svg?branch=develop)](https://travis-ci.org/andela/ah-frontend-taces)
+[![Coverage Status](https://coveralls.io/repos/github/andela/ah-frontend-taces/badge.svg?branch=develop)](https://coveralls.io/github/andela/ah-frontend-taces?branch=develop)
+
+Authors Haven - A Social platform for the creative at heart.
+=======
 
 ## Vision
 
