@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/andela/ah-frontend-taces.svg?branch=develop)](https://travis-ci.org/andela/ah-frontend-taces)
 [![Coverage Status](https://coveralls.io/repos/github/andela/ah-frontend-taces/badge.svg?branch=develop)](https://coveralls.io/github/andela/ah-frontend-taces?branch=develop)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/16b01323d5f18d34f1d5/test_coverage)](https://codeclimate.com/github/andela/ah-frontend-taces/test_coverage)
 
 Authors Haven - A Social platform for the creative at heart.
 =======

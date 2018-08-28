@@ -22,3 +22,7 @@ yarn-error.log*
 
 # package-lock.json
 package-lock.json
+
+#snapshots
+/__snapshots__
+.snap
