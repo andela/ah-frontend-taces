@@ -1,7 +1,7 @@
 import { TOGGLE_LANDING_PAGE } from '../actions/actionTypes';
 
 const initialState = {
-  showLanding: true,
+  showLanding: !localStorage.getItem('token'),
 };
 
 const reducer = (state = initialState, action) => {

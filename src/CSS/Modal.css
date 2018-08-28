@@ -12,6 +12,23 @@
     transition: all 0.5s ease-out;
 }
 
+.Modal a {
+    color: #0693e3;
+    text-decoration: none;
+}
+
+.Modal a:hover {
+    color: #00bcd4;
+}
+
+.Modal h3 {
+    font-family: 'Roboto', sans-serif;;
+}
+
+.Modal button {
+    width: 100% !important;
+}
+
 @media(min-width: 600px){
     .Modal{
         width: 500px;

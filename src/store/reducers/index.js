@@ -4,11 +4,13 @@ import {
 import thunk from 'redux-thunk';
 import toggleLandingPageReducer from './toggleLandingPageReducer';
 import toggleModalReducer from './toggleModalReducer';
+import authReducer from './loginReducer';
 
 // combine all reducers into one root reducer
 const rootReducer = combineReducers({
   landingReducer: toggleLandingPageReducer,
   modalReducer: toggleModalReducer,
+  isAuthentic: authReducer,
 });
 
 // creates a store
