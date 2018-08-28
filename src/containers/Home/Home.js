@@ -9,7 +9,7 @@ import {
   START_LOGIN,
   START_REGISTRATION,
 } from '../../store/actions/actionTypes';
-import Header from '../../components/Header/Header';
+import Header from '../Header/Header';
 import Popular from '../../components/Popular/Popular';
 import Recent from '../../components/Recent/Recent';
 import Footer from '../../components/Footer/Footer';

@@ -5,3 +5,11 @@ export const START_LOGIN = 'START_LOGIN';
 export const START_REGISTRATION = 'START_REGISTRATION';
 
 export const CLOSE_MODAL = 'CLOSE_MODAL';
+// login action types
+export const LOGIN_START = 'LOGIN_START';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const TOGGLE_PROFILE_DROPDOWN = 'TOGGLE_PROFILE_DROPDOWN';
+
+// modal action types
+export const TOGGLE_MODAL = 'TOGGLE_MODAL';

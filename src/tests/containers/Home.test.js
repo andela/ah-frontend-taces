@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Home } from '../../containers/Home/Home';
-import Header from '../../components/Header/Header';
+import Header from '../../containers/Header/Header';
 import Popular from '../../components/Popular/Popular';
 import Recent from '../../components/Recent/Recent';
 import Footer from '../../components/Footer/Footer';
