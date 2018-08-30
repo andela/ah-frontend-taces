@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoginUser from '../../store/actions/loginActions';
 import Alerts from '../../components/Alerts/Alerts';
-import { LOGIN_SUCCESS, START_REGISTRATION } from '../../store/actions/actionTypes';
 import PasswordReset from '../passwordReset/passwordReset';
 import Loader from '../../components/Loader/Loader';
+import { LOGIN_SUCCESS, OPEN_MODAL_TO_REGISTRATION } from '../../store/actions/actionTypes';
 
 export class Login extends Component {
   constructor(props) {
@@ -143,7 +143,7 @@ const mapDispatchToProps = dispatch => {
     // call the loginUser function that excutes api calls for login
     AUTH: data => dispatch(LoginUser(data)),
     MAKEAUTHENTIC: () => dispatch({ type: LOGIN_SUCCESS }),
-    SHOW_SIGNUP: () => dispatch({ type: START_REGISTRATION }),
+    SHOW_SIGNUP: () => dispatch({ type: OPEN_MODAL_TO_REGISTRATION }),
   };
 };
 

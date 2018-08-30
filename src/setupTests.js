@@ -5,8 +5,7 @@ configure({ adapter: new Adapter() });
 
 class LocalStorageMock {
   constructor() {
-    this.store = {
-    };
+    this.store = {};
   }
 
   getItem(key) {

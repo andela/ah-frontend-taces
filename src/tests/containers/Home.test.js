@@ -4,7 +4,7 @@ import { Home } from '../../containers/Home/Home';
 import Header from '../../containers/Header/Header';
 import Popular from '../../components/Popular/Popular';
 import Recent from '../../components/Recent/Recent';
-import Footer from '../../components/Footer/Footer';
+import Footer from '../../components/Foot/Foot';
 
 it('test check if url token lenght is less', () => {
   const wrapper = shallow(<Home showLandingPage={true} toggleLandingPageHandler={() => {}} />);
