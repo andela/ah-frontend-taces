@@ -7,17 +7,18 @@ import Landing from '../../components/Landing/Landing';
 import {
   TOGGLE_LANDING_PAGE,
   CLOSE_MODAL,
-  START_LOGIN,
-  START_REGISTRATION,
+  OPEN_MODAL_TO_LOGIN,
+  OPEN_MODAL_TO_REGISTRATION,
 } from '../../store/actions/actionTypes';
 import Header from '../Header/Header';
 import Popular from '../../components/Popular/Popular';
 import Recent from '../../components/Recent/Recent';
-import Footer from '../../components/Footer/Footer';
 import Modal from '../../components/Modal/Modal';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import { PasswordFillInForm } from '../passwordReset/PasswordFillInForm';
+import Footer from '../../components/Foot/Foot';
+import Alerts from '../../components/Alerts/Alerts';
 
 export class Home extends Component {
   constructor(props) {
@@ -82,6 +83,7 @@ export class Home extends Component {
   render() {
     const {
       isLogin,
+      isSuccess,
       closeModal,
       showModal,
       toggleLandingPageHandler,
@@ -95,15 +97,38 @@ export class Home extends Component {
       passwordValidationMessage,
       loadingPassReset,
     } = this.state;
-    const modal = isLogin ? (
+
+    let modal = (
       <Modal show={showModal} closeModal={closeModal}>
         <Login />
       </Modal>
-    ) : (
-      <Modal show={showModal} closeModal={closeModal}>
-        <Register />
-      </Modal>
     );
+
+    if (!isLogin) {
+      modal = (
+        <Modal show={showModal} closeModal={closeModal}>
+          <Register />
+        </Modal>
+      );
+    }
+
+    if (isSuccess) {
+      modal = (
+        <Modal show={showModal} closeModal={closeModal}>
+          <Alerts message="You have registered successfully! Check your email to verify your account." alertType="alert-success" title="Success:" />
+        </Modal>
+      );
+    }
+
+    // const modal = isLogin ? (
+    //   <Modal show={showModal} closeModal={closeModal}>
+    //     <Login />
+    //   </Modal>
+    // ) : (
+    //   <Modal show={showModal} closeModal={closeModal}>
+    //     <Register />
+    //   </Modal>
+    // );
     return (
       <Wrapper>
         <div className="container py-5">
@@ -132,7 +157,8 @@ export class Home extends Component {
 }
 
 Home.propTypes = {
-  isLogin: PropTypes.func,
+  isLogin: PropTypes.bool,
+  isSuccess: PropTypes.bool,
   closeModal: PropTypes.func,
   showModal: PropTypes.bool,
   toggleLandingPageHandler: PropTypes.func,
@@ -142,7 +168,8 @@ Home.propTypes = {
 };
 
 Home.defaultProps = {
-  isLogin: () => {},
+  isLogin: true,
+  isSuccess: false,
   closeModal: () => {},
   showModal: false,
   toggleLandingPageHandler: () => {},
@@ -156,6 +183,7 @@ const mapStateToProps = state => {
     showLandingPage: state.landingReducer.showLanding,
     showModal: state.modalReducer.showModal,
     isLogin: state.modalReducer.isLogin,
+    isSuccess: state.modalReducer.isSuccess,
   };
 };
 
@@ -163,9 +191,9 @@ const mapDispatchToProps = dispatch => {
   return {
     toggleLandingPageHandler: () => dispatch({ type: TOGGLE_LANDING_PAGE }),
 
-    toggleModalOnLoginHandler: () => dispatch({ type: START_LOGIN }),
+    toggleModalOnLoginHandler: () => dispatch({ type: OPEN_MODAL_TO_LOGIN }),
 
-    toggleModalOnSigninHandler: () => dispatch({ type: START_REGISTRATION }),
+    toggleModalOnSigninHandler: () => dispatch({ type: OPEN_MODAL_TO_REGISTRATION }),
 
     closeModal: () => dispatch({ type: CLOSE_MODAL }),
   };

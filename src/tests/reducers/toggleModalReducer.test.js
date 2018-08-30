@@ -1,56 +1,46 @@
 import reducer from '../../store/reducers/toggleModalReducer';
-import { START_LOGIN, START_REGISTRATION, CLOSE_MODAL } from '../../store/actions/actionTypes';
+import {
+  OPEN_MODAL_TO_LOGIN,
+  OPEN_MODAL_TO_REGISTRATION,
+  CLOSE_MODAL,
+  SWITCH_TO_MODAL_TO_LOGIN,
+} from '../../store/actions/actionTypes';
 
-describe('toggleLandingPageReducer', () => {
+describe('togglModalReducer', () => {
+  const initialState = {
+    showModal: false,
+    isLogin: true,
+    isSuccess: false,
+  };
+
   it('should return the initial state', () => {
-    expect(reducer(undefined, {})).toEqual({
-      showModal: false,
-      isLogin: true
-    });
+    expect(reducer(undefined, {})).toEqual(initialState);
   });
 
   it('should change the state of showModal to true when login starts', () => {
-    expect(
-      reducer(
-        {
-          showModal: true,
-          isLogin: true,
-        },
-        { type: START_LOGIN }
-      )
-    ).toEqual({
-      showModal: true,
-      isLogin: true,
-    });
+    const action = { type: OPEN_MODAL_TO_LOGIN };
+    const newState = reducer(initialState, action);
+    expect(newState.showModal).toEqual(true);
+    expect(newState.isLogin).toEqual(true);
   });
 
   it('should change the state of isLogin to false', () => {
-    expect(
-      reducer(
-        {
-          showModal: true,
-          isLogin: false,
-        },
-        { type: START_REGISTRATION }
-      )
-    ).toEqual({
-      showModal: true,
-      isLogin: false
-    });
+    const action = { type: OPEN_MODAL_TO_REGISTRATION };
+    const newState = reducer(initialState, action);
+    expect(newState.showModal).toEqual(true);
+    expect(newState.isLogin).toEqual(false);
   });
 
   it('should change the state of showModal to false when close modal', () => {
-    expect(
-      reducer(
-        {
-          showModal: false,
-          isLogin: true,
-        },
-        { type: CLOSE_MODAL }
-      )
-    ).toEqual({
-      showModal: false,
-      isLogin: true,
-    });
+    const action = { type: CLOSE_MODAL };
+    const newState = reducer(initialState, action);
+    expect(newState.showModal).toEqual(false);
+    expect(newState.isLogin).toEqual(true);
+  });
+
+  it('should change the state of isLogin to true', () => {
+    const action = { type: SWITCH_TO_MODAL_TO_LOGIN };
+    const newState = reducer(initialState, action);
+    expect(newState.isLogin).toEqual(true);
   });
 });

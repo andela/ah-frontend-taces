@@ -70,7 +70,8 @@
       "!src/index.js",
       "!src/routes.js",
       "!src/store/reducers/index.js",
-      "!src/store/actions/loginActions.js"
+      "!src/store/actions/loginActions.js",
+      "!src/setupTests.js"
     ],
     "setupFiles": [
       "<rootDir>/config/polyfills.js"
