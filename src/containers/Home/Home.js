@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import Wrapper from "../../hoc/Wrapper/Wrapper";
+import React, { Component } from 'react';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 
 class Home extends Component {
   render() {
