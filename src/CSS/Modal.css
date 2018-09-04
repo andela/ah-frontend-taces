@@ -29,6 +29,10 @@
     width: 100% !important;
 }
 
+.password_reset_waring {
+    color: red;
+}
+
 @media(min-width: 600px){
     .Modal{
         width: 500px;
