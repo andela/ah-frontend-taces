@@ -7,6 +7,8 @@ import Alerts from '../../components/Alerts/Alerts';
 import PasswordReset from '../passwordReset/passwordReset';
 import Loader from '../../components/Loader/Loader';
 import { LOGIN_SUCCESS, OPEN_MODAL_TO_REGISTRATION } from '../../store/actions/actionTypes';
+import FacebookLoginComponent from '../../components/SocialLogin/FacebookLogin';
+import GoogleLoginComponent from '../../components/SocialLogin/GoogleLogin';
 
 export class Login extends Component {
   constructor(props) {
@@ -19,10 +21,10 @@ export class Login extends Component {
 
   componentDidMount() {
     const { MAKEAUTHENTIC } = this.props;
-    axios.get(
-      'https://authors-haven-tabs.herokuapp.com/api/user/',
-      { headers: { Authorization: `Token ${localStorage.getItem('token')}` } },
-    )
+    axios
+      .get('https://authors-haven-tabs.herokuapp.com/api/user/', {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+      })
       .then(response => {
         MAKEAUTHENTIC();
         localStorage.setItem('username', response.data.user.username);
@@ -42,7 +44,7 @@ export class Login extends Component {
   passwordReset = () => {
     const { showPasswordReset } = this.state;
     this.setState({ showPasswordReset: !showPasswordReset });
-  }
+  };
 
   loginSubmit = event => {
     const { AUTH } = this.props;
@@ -54,58 +56,76 @@ export class Login extends Component {
     });
   };
 
+  // open loader when social auth is cliked
+  loader = () => {
+    this.setState({ loadingshow: true });
+  }
+
   render() {
     const { message, loading, SHOW_SIGNUP } = this.props;
-    const { showPasswordReset } = this.state;
+    const { showPasswordReset, loadingshow } = this.state;
     return (
       <div className="container">
+        {showPasswordReset ? (
+          <PasswordReset ShowLogin={this.passwordReset} />
+        ) : (
+          <form onSubmit={this.loginSubmit}>
+            <center>
+              <h3>Welcome Back!</h3>
+            </center>
+            <center>{loading ? <Loader /> : null}</center>
+            {message ? <Alerts message={message} alertType="alert-danger" title="Error:" /> : null}
+            <div className="form-group">
+              <input
+                type="email"
+                className="form-control no-border"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+                name="email"
+                onChange={this.eventListener}
+                required
+              />
+              <small id="emailHelp" className="form-text text-muted">
+                We&apos;ll never share your email with anyone else.
+              </small>
+            </div>
 
-        { showPasswordReset
-          ? (<PasswordReset ShowLogin={this.passwordReset} />)
-          : (
-            <form onSubmit={this.loginSubmit}>
-              <center><h3>Welcome Back!</h3></center>
-              <center>{loading ? <Loader /> : null}</center>
-              {message ? <Alerts message={message} alertType="alert-danger" title="Error:" /> : null}
-              <div className="form-group">
-                <input
-                  type="email"
-                  className="form-control no-border"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                  name="email"
-                  onChange={this.eventListener}
-                  required
-                />
-                <small id="emailHelp" className="form-text text-muted">
-                  We&apos;ll never share your email with anyone else.
-                </small>
-              </div>
+            <div className="form-group">
+              <input
+                type="password"
+                className="form-control no-border"
+                id="exampleInputPassword1"
+                placeholder="Password"
+                onChange={this.eventListener}
+                name="password"
+                required
+              />
+              <small id="emailHelp" className="form-text text-muted">
+                <span>Forgot Password? </span>
+                <a href="#" id="showPasswordReset" onClick={this.passwordReset}>
+                  {' '}
+                  Reset password!
+                </a>
+              </small>
+            </div>
 
-              <div className="form-group">
-                <input
-                  type="password"
-                  className="form-control no-border"
-                  id="exampleInputPassword1"
-                  placeholder="Password"
-                  onChange={this.eventListener}
-                  name="password"
-                  required
-                />
-                <small id="emailHelp" className="form-text text-muted">
-                  <span>Forgot Password? </span>
-                  <a href="#" id="showPasswordReset" onClick={this.passwordReset}> Reset password!</a>
-                </small>
-              </div>
-
-              <button className="btn btn-dark" disabled={loading}>Login</button>
-            </form>
-          )}
+            <button className="btn btn-dark" disabled={loading}>
+              Login
+            </button>
+          </form>
+        )}
         <br />
+        <center>{loadingshow ? <Loader /> : <p>or</p>}</center>
+        <FacebookLoginComponent click={this.loader} />
+        <GoogleLoginComponent click={this.loader} />
         <center>
-          <span><small> No Account? </small></span>
-          <a href="#" onClick={SHOW_SIGNUP}><small>Create One!</small></a>
+          <span>
+            <small> No Account? </small>
+          </span>
+          <a href="#" onClick={SHOW_SIGNUP}>
+            <small>Create One!</small>
+          </a>
         </center>
       </div>
     );

@@ -1,0 +1,29 @@
+.registerWrapper {
+  text-align: center;
+  display: block;
+}
+.socialButtons {
+  margin-bottom: 16px;
+  display: inline-block;
+  color: rgb(255, 255, 255);
+  width: 80%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Roboto;
+}
+
+.buttonFacebook {
+  background: #4c69ba;
+}
+
+.buttonGoogle {
+  background: rgb(189, 8, 28);
+}
+
+.buttonEmail {
+  background: rgb(53, 52, 52);
+}
