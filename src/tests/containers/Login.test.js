@@ -1,30 +1,46 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import moxios from 'moxios';
+import configureStore from 'redux-mock-store';
 import { Login } from '../../containers/Login/Login';
 
 
 describe('Test pasword reset', () => {
-  beforeEach(() => moxios.install());
-  afterEach(() => moxios.uninstall());
 
-  it('calls eventListener', () => {
-    const loginData = { data: { username: 'someName', email: 'email@email.com' } };
+  let initialState;
+  let wrapper;
+  let store;
+  const mockStore = configureStore();
+  const loginData = { data: { username: 'someName', email: 'email@email.com' } };
+  const createSpy = (toSpy) => jest.spyOn(wrapper.instance(), toSpy);
 
+  beforeEach(() => {
+    moxios.install();
+    initialState = {};
+    store = mockStore(initialState);
+    wrapper = shallow(<Login store={store} />);
     moxios.stubRequest('/api/users/password/forgot/', {
       status: 400,
       response: loginData,
     });
+  });
+  afterEach(() => moxios.uninstall());
 
-    const wrapper = mount(<Login />);
-    const eventListener = jest.spyOn(wrapper.instance(), 'eventListener');
-    const loginSubmit = jest.spyOn(wrapper.instance(), 'loginSubmit');
+  it('calls eventListener', () => {
+    const spy = createSpy('eventListener');
     wrapper.instance().forceUpdate();
     const title = wrapper.find('input[name="password"]');
     title.simulate('change', { target: { value: 'some password', name: 'password' } });
-    title.simulate('change', { target: { value: 'some@email.com', name: 'email' } });
-    expect(eventListener).toHaveBeenCalled();
-    wrapper.find('form').simulate('submit');
-    expect(loginSubmit).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should call loginSubmit', () => {
+    const spy = createSpy('loginSubmit');
+    const email = wrapper.find('input[name="email"]');
+    email.simulate('change', { target: { value: 'test@gmail.com', name: 'email' } });
+    const password = wrapper.find('input[name="password"]');
+    password.simulate('change', { target: { value: '#pass@123', name: 'password' } });
+    wrapper.find('form').simulate('submit', { preventDefault: () => {} });
+    expect(spy).toHaveBeenCalled();
   });
 });

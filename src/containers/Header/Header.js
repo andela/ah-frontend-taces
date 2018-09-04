@@ -30,8 +30,8 @@ export class Header extends Component {
           {authStatus
             ? (
               <div>
-                <a href="#" id="profilePictureLink" onClick={TOGGLE_PROFILE_ACTION}>
-                  <img src="https://cdn0.iconfinder.com/data/icons/avatar-15/512/ninja-512.png" className={classes.profile_picture} alt="Cinque Terre" width="50" height="50" />
+                <a href="#" onClick={TOGGLE_PROFILE_ACTION}>
+                  <img src={localStorage.getItem('picture')} className={classes.profile_picture} alt="Cinque Terre" width="50" height="50" />
                 </a>
                 {ProfileDropdownState
                   ? (
