@@ -5,12 +5,15 @@ import PropTypes from 'prop-types';
 import LoginUser from '../../store/actions/loginActions';
 import Alerts from '../../components/Alerts/Alerts';
 import { LOGIN_SUCCESS, START_REGISTRATION } from '../../store/actions/actionTypes';
+import PasswordReset from '../passwordReset/passwordReset';
+import Loader from '../../components/Loader/Loader';
 
 export class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       // holds all states
+      showPasswordReset: false,
     };
   }
 
@@ -35,6 +38,12 @@ export class Login extends Component {
   // takes username and password and stores them in state by name
   eventListener = event => this.setState({ [event.target.name]: event.target.value });
 
+  // show password reset forms when password link is clicked
+  passwordReset = () => {
+    const { showPasswordReset } = this.state;
+    this.setState({ showPasswordReset: !showPasswordReset });
+  }
+
   loginSubmit = event => {
     const { AUTH } = this.props;
     const { email, password } = this.state;
@@ -47,47 +56,57 @@ export class Login extends Component {
 
   render() {
     const { message, loading, SHOW_SIGNUP } = this.props;
+    const { showPasswordReset } = this.state;
     return (
       <div className="container">
-        <form onSubmit={this.loginSubmit}>
-          <center><h3>Welcome Back!</h3></center>
-          {message ? <Alerts message={message} alertType="alert-danger" title="Error:" /> : null}
-          <div className="form-group">
-            <input
-                type="email"
-                className="form-control no-border"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-                name="email"
-                onChange={this.eventListener}
-                required
-              />
-            <small id="emailHelp" className="form-text text-muted">
-                We&apos;ll never share your email with anyone else.
-            </small>
-          </div>
 
-          <div className="form-group">
-            <input
-                type="password"
-                className="form-control no-border"
-                id="exampleInputPassword1"
-                placeholder="Password"
-                onChange={this.eventListener}
-                name="password"
-                required
-              />
-          </div>
+        { showPasswordReset
+          ? (<PasswordReset ShowLogin={this.passwordReset} />)
+          : (
+            <form onSubmit={this.loginSubmit}>
+              <center><h3>Welcome Back!</h3></center>
+              <center>{loading ? <Loader /> : null}</center>
+              {message ? <Alerts message={message} alertType="alert-danger" title="Error:" /> : null}
+              <div className="form-group">
+                <input
+                  type="email"
+                  className="form-control no-border"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter email"
+                  name="email"
+                  onChange={this.eventListener}
+                  required
+                />
+                <small id="emailHelp" className="form-text text-muted">
+                  We&apos;ll never share your email with anyone else.
+                </small>
+              </div>
 
-          <button className="btn btn-dark" disabled={loading}>Login</button>
-          <br />
-          <br />
-          <center>
-            <span><small> No Account? </small></span>
-            <a href="#" onClick={SHOW_SIGNUP}><small>Create One!</small></a>
-          </center>
-        </form>
+              <div className="form-group">
+                <input
+                  type="password"
+                  className="form-control no-border"
+                  id="exampleInputPassword1"
+                  placeholder="Password"
+                  onChange={this.eventListener}
+                  name="password"
+                  required
+                />
+                <small id="emailHelp" className="form-text text-muted">
+                  <span>Forgot Password? </span>
+                  <a href="#" id="showPasswordReset" onClick={this.passwordReset}> Reset password!</a>
+                </small>
+              </div>
+
+              <button className="btn btn-dark" disabled={loading}>Login</button>
+            </form>
+          )}
+        <br />
+        <center>
+          <span><small> No Account? </small></span>
+          <a href="#" onClick={SHOW_SIGNUP}><small>Create One!</small></a>
+        </center>
       </div>
     );
   }

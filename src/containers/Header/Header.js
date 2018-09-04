@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classes from '../../CSS/Header.css';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
-import { LOGIN_FAIL, TOGGLE_PROFILE_DROPDOWN } from '../../store/actions/actionTypes';
+import { TOGGLE_PROFILE_DROPDOWN } from '../../store/actions/actionTypes';
 
 const signOut = () => {
   localStorage.removeItem('token');
@@ -30,7 +30,7 @@ export class Header extends Component {
           {authStatus
             ? (
               <div>
-                <a href="#" onClick={TOGGLE_PROFILE_ACTION}>
+                <a href="#" id="profilePictureLink" onClick={TOGGLE_PROFILE_ACTION}>
                   <img src="https://cdn0.iconfinder.com/data/icons/avatar-15/512/ninja-512.png" className={classes.profile_picture} alt="Cinque Terre" width="50" height="50" />
                 </a>
                 {ProfileDropdownState
@@ -45,7 +45,7 @@ export class Header extends Component {
                       <a className="dropdown-item" href="#">Profile</a>
                       <a className="dropdown-item" href="#">Settings</a>
                       <div className="dropdown-divider" />
-                      <a className="dropdown-item" href="" onClick={signOut}>Sign Out</a>
+                      <a className="dropdown-item" id="signOutLink" href="" onClick={signOut}>Sign Out</a>
                     </div>
                   )
                   : null
@@ -175,7 +175,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   // map dispatch to props
   return {
-    SIGNOUT: () => dispatch({ type: LOGIN_FAIL }),
+    // SIGNOUT: () => dispatch({ type: LOGIN_FAIL }),
     TOGGLE_PROFILE_ACTION: () => dispatch({ type: TOGGLE_PROFILE_DROPDOWN }),
   };
 };

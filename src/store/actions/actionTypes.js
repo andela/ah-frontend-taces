@@ -13,3 +13,8 @@ export const TOGGLE_PROFILE_DROPDOWN = 'TOGGLE_PROFILE_DROPDOWN';
 
 // modal action types
 export const TOGGLE_MODAL = 'TOGGLE_MODAL';
+
+// password reset action types
+export const PASSWORD_RESET_START = 'PASSWORD_RESET_START';
+export const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
+export const PASSWORD_RESET_FAIL = 'PASSWORD_RESET_FAIL';
