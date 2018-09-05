@@ -20,7 +20,7 @@ const popular = () => {
           <h5>Classic cars still rule...</h5>
           <p className={classes.titleParagraph}>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-            has been the industry's standard dummy text ever since the 1500s, when an unknown
+            has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown
             printer took a galley of type and scrambled it to make a type specimen book.
           </p>
           <p className={classes.authorTag}>Author: Riz Ahmed Jan 1st, 2018</p>
@@ -34,7 +34,7 @@ const popular = () => {
           <h5>Why you should own a Tesla</h5>
           <p className={classes.titleParagraph}>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-            has been the industry's standard dummy text ever since the 1500s, when an unknown
+            has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown
             printer took a galley of type and scrambled it to make a type specimen book.
           </p>
           <p className={classes.authorTag}>Author: Seki Rahu April 20th, 2018</p>
@@ -48,7 +48,7 @@ const popular = () => {
           <h5>Where the rich vacation</h5>
           <p className={classes.titleParagraph}>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-            has been the industry's standard dummy text ever since the 1500s, when an unknown
+            has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown
             printer took a galley of type and scrambled it to make a type specimen book.
           </p>
           <p className={classes.authorTag}>Author: Tar Ancalime Aug 18th, 2018</p>

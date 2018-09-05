@@ -4,17 +4,18 @@ import classes from '../../CSS/Landing.css';
 
 const landing = (props) => {
   const divClasses = [classes.Landing, 'col-sm-12'].join(' ');
+  const { show, closeLanding } = props;
   return (
     <div
       className={divClasses}
       style={{
-        transform: !props.show ? 'translateX(-100vw)' : null,
+        transform: !show ? 'translateX(-100vw)' : null,
       }}
-      onClick={props.closeLanding}
+      onClick={closeLanding}
     >
       <div className={classes.Headline}>
         <div className="col-sm-6">
-          <h4>Author's Haven</h4>
+          <h4>Author&apos;s Haven</h4>
           <span>
             The best thing about a book tour is meeting your imagined readers, staring into their
             lamplit faces, hearing a little about their lives and, for a slender moment anyway,

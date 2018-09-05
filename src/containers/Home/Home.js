@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
 import Landing from '../../components/Landing/Landing';
 import {
-  TOGGLE_LANDING_PAGE, CLOSE_MODAL, START_LOGIN, START_REGISTRATION,
+  TOGGLE_LANDING_PAGE,
+  CLOSE_MODAL,
+  START_LOGIN,
+  START_REGISTRATION,
 } from '../../store/actions/actionTypes';
 import Header from '../../components/Header/Header';
 import Popular from '../../components/Popular/Popular';
@@ -15,17 +18,22 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 
 export class Home extends Component {
-  hideLandingPage = () => {
-    this.props.toggleLandingPageHandler();
-  };
-
   render() {
-    const modal = this.props.isLogin ? (
-      <Modal show={this.props.showModal} closeModal={this.props.closeModal}>
+    const {
+      isLogin,
+      closeModal,
+      showModal,
+      toggleLandingPageHandler,
+      toggleModalOnSigninHandler,
+      toggleModalOnLoginHandler,
+      showLandingPage,
+    } = this.props;
+    const modal = isLogin ? (
+      <Modal show={showModal} closeModal={closeModal}>
         <Login />
       </Modal>
     ) : (
-      <Modal show={this.props.showModal} closeModal={this.props.closeModal}>
+      <Modal show={showModal} closeModal={closeModal}>
         <Register />
       </Modal>
     );
@@ -33,14 +41,14 @@ export class Home extends Component {
       <Wrapper>
         <div className="container py-5">
           <Header
-            clickSignin={this.props.toggleModalOnLoginHandler}
-            clickSignup={this.props.toggleModalOnSigninHandler}
+            clickSignin={toggleModalOnLoginHandler}
+            clickSignup={toggleModalOnSigninHandler}
           />
           <Popular />
           <Recent />
         </div>
         <Footer />
-        <Landing closeLanding={this.hideLandingPage} show={this.props.showLandingPage} />
+        <Landing closeLanding={toggleLandingPageHandler} show={showLandingPage} />
         {modal}
       </Wrapper>
     );
@@ -75,7 +83,6 @@ const mapStateToProps = state => {
   };
 };
 
-
 const mapDispatchToProps = dispatch => {
   return {
     toggleLandingPageHandler: () => dispatch({ type: TOGGLE_LANDING_PAGE }),
@@ -87,7 +94,6 @@ const mapDispatchToProps = dispatch => {
     closeModal: () => dispatch({ type: CLOSE_MODAL }),
   };
 };
-
 
 export default connect(
   mapStateToProps,

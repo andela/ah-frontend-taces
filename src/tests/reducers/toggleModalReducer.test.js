@@ -1,35 +1,35 @@
-import reducer from "../store/reducers/toggleModalReducer";
-import {START_LOGIN, START_REGISTRATION, CLOSE_MODAL} from "../store/actions/actionTypes";
+import reducer from '../../store/reducers/toggleModalReducer';
+import { START_LOGIN, START_REGISTRATION, CLOSE_MODAL } from '../../store/actions/actionTypes';
 
-describe("toggleLandingPageReducer", () => {
-  it("should return the initial state", () => {
+describe('toggleLandingPageReducer', () => {
+  it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       showModal: false,
       isLogin: true
     });
   });
 
-  it("should change the state of showModal to true when login starts", () => {
+  it('should change the state of showModal to true when login starts', () => {
     expect(
       reducer(
         {
           showModal: true,
-          isLogin: true
+          isLogin: true,
         },
         { type: START_LOGIN }
       )
     ).toEqual({
       showModal: true,
-      isLogin: true
+      isLogin: true,
     });
   });
 
-  it("should change the state of isLogin to false", () => {
+  it('should change the state of isLogin to false', () => {
     expect(
       reducer(
         {
           showModal: true,
-          isLogin: false
+          isLogin: false,
         },
         { type: START_REGISTRATION }
       )
@@ -39,18 +39,18 @@ describe("toggleLandingPageReducer", () => {
     });
   });
 
-  it("should change the state of showModal to false when close modal", () => {
+  it('should change the state of showModal to false when close modal', () => {
     expect(
       reducer(
         {
           showModal: false,
-          isLogin: true
+          isLogin: true,
         },
         { type: CLOSE_MODAL }
       )
     ).toEqual({
       showModal: false,
-      isLogin: true
+      isLogin: true,
     });
   });
 });
