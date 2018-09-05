@@ -5,6 +5,10 @@ import {
 import { connect } from 'react-redux';
 import Home from './containers/Home/Home';
 import Article from './containers/Articles/Article';
+import Wrapper from './hoc/Wrapper/Wrapper';
+import Header from './containers/Header/Header';
+import Footer from './components/Foot/Foot';
+import CreateArticle from './components/Articles/createArticle';
 
 
 const routes = (props) => {
@@ -12,11 +16,16 @@ const routes = (props) => {
   return (
     <div>
       <BrowserRouter>
-        <Switch>
-          {authStatus ? <Route path="/articles/:slug" exact component={Article} /> : null}
-          <Route path="/" exact component={Home} />
-          <Redirect from="/" to="/" />
-        </Switch>
+        <Wrapper>
+          <Header />
+          <Switch>
+            {authStatus ? <Route path="/articles/:slug" exact component={Article} /> : null}
+            {authStatus ? <Route path="/createArticle" exact component={CreateArticle} /> : null}
+            <Route path="/" exact component={Home} />
+            <Redirect from="/" to="/" />
+          </Switch>
+          <Footer />
+        </Wrapper>
       </BrowserRouter>
     </div>
   );
