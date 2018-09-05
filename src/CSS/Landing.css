@@ -1,0 +1,62 @@
+.Landing {
+    height : 100%;
+    width: 100%;
+    background:url( https://images.unsplash.com/photo-1527779924457-aec8bd402625?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=374c205ba7b271e5b04a9da4debc113a&auto=format&fit=crop&w=1987&q=80) no-repeat;
+    background-size: cover;
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;   
+    color: black;
+    transition: all 0.7s linear;
+    cursor: url("https://alpha-demo.krownthemes.com/wp-content/themes/alpha/images/svg-arrow-right-dark.svg"), auto;
+}
+.Headline{
+    position: absolute;
+    height: auto;
+    padding: 6px 60px;
+    top: 33%;
+    left: 50px;
+    padding-bottom: 50px;
+}
+.Headline span{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    color: black;
+}
+.Headline button{
+    width: 150px;
+    height: 50px;
+    background: #111010;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+    font-size: 18px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 15px 20px 0 0;
+    border: none;
+}
+.Headline button{
+    padding: 0;
+    cursor: pointer;
+}
+h4 {
+   color: black; 
+}
+@media(min-width:320px) and (max-width:768px){
+    .Headline{
+        width: auto;
+        height: auto;
+        padding: 6px 7px;
+        top: 33%;
+        left: 0px;
+        padding-bottom: 50px;
+    }
+    .Headline button{
+        width: 144px;
+    }
+}

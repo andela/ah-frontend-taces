@@ -1,18 +1,19 @@
 import {
-    createStore,
-    combineReducers,
-    compose,
-    applyMiddleware
-} from "redux"
-import thunk from "redux-thunk";
+  createStore, combineReducers, compose, applyMiddleware,
+} from 'redux';
+import thunk from 'redux-thunk';
+import toggleLandingPageReducer from './toggleLandingPageReducer';
+import toggleModalReducer from './toggleModalReducer';
 
 // combine all reducers into one root reducer
 const rootReducer = combineReducers({
-    //this is where key valure pairs of reducers should be placed
-})
+  landingReducer: toggleLandingPageReducer,
+  modalReducer: toggleModalReducer,
+});
 
 // creates a store
+/* eslint no-underscore-dangle: 0 */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const Store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
-export default Store;
+export default store;
