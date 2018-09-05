@@ -3,7 +3,7 @@ import {
 } from '../actions/actionTypes';
 
 const initialize = {
-  isAuthentic: localStorage.getItem('token'),
+  isAuthentic: localStorage.getItem('token') || false,
   loading: false,
   toggleProfileDropdown: false,
 };

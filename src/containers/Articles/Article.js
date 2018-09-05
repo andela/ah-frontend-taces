@@ -7,9 +7,6 @@ import Wrapper from '../../hoc/Wrapper/Wrapper';
 
 import ArticleLoader from '../Loaders/ArticleLoader';
 
-import Header from '../Header/Header';
-import Footer from '../../components/Foot/Foot';
-
 export class Article extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +59,6 @@ export class Article extends Component {
     return (
       <Wrapper>
         <div className="container">
-          <Header />
           <div className="row">
             <div className="col-12">
               {!showLoader
@@ -102,7 +98,6 @@ export class Article extends Component {
             </div>
           </div>
         </div>
-        <Footer />
       </Wrapper>
     );
   }

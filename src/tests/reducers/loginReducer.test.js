@@ -5,6 +5,7 @@ import {
 
 describe('toggleLandingPageReducer', () => {
   it('should return the initial state', () => {
+    
     const isAuthentic = false;
     const loading = false;
     const toggleProfileDropdown = false;

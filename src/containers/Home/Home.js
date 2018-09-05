@@ -7,17 +7,13 @@ import Landing from '../../components/Landing/Landing';
 import {
   TOGGLE_LANDING_PAGE,
   CLOSE_MODAL,
-  OPEN_MODAL_TO_LOGIN,
-  OPEN_MODAL_TO_REGISTRATION,
 } from '../../store/actions/actionTypes';
-import Header from '../Header/Header';
 import Popular from '../../components/Popular/Popular';
 import Recent from '../../components/Recent/Recent';
 import Modal from '../../components/Modal/Modal';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import { PasswordFillInForm } from '../passwordReset/PasswordFillInForm';
-import Footer from '../../components/Foot/Foot';
 import Alerts from '../../components/Alerts/Alerts';
 
 export class Home extends Component {
@@ -87,8 +83,6 @@ export class Home extends Component {
       closeModal,
       showModal,
       toggleLandingPageHandler,
-      toggleModalOnSigninHandler,
-      toggleModalOnLoginHandler,
       showLandingPage,
     } = this.props;
 
@@ -119,27 +113,12 @@ export class Home extends Component {
         </Modal>
       );
     }
-
-    // const modal = isLogin ? (
-    //   <Modal show={showModal} closeModal={closeModal}>
-    //     <Login />
-    //   </Modal>
-    // ) : (
-    //   <Modal show={showModal} closeModal={closeModal}>
-    //     <Register />
-    //   </Modal>
-    // );
     return (
       <Wrapper>
         <div className="container py-5">
-          <Header
-            clickSignin={toggleModalOnLoginHandler}
-            clickSignup={toggleModalOnSigninHandler}
-          />
           <Popular />
           <Recent />
         </div>
-        <Footer />
         <Landing closeLanding={toggleLandingPageHandler} show={showLandingPage} />
         {modal}
         <Modal show={passwordReset}>
@@ -162,8 +141,6 @@ Home.propTypes = {
   closeModal: PropTypes.func,
   showModal: PropTypes.bool,
   toggleLandingPageHandler: PropTypes.func,
-  toggleModalOnSigninHandler: PropTypes.func,
-  toggleModalOnLoginHandler: PropTypes.func,
   showLandingPage: PropTypes.bool,
 };
 
@@ -173,8 +150,6 @@ Home.defaultProps = {
   closeModal: () => {},
   showModal: false,
   toggleLandingPageHandler: () => {},
-  toggleModalOnSigninHandler: () => {},
-  toggleModalOnLoginHandler: () => {},
   showLandingPage: true,
 };
 
@@ -190,10 +165,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     toggleLandingPageHandler: () => dispatch({ type: TOGGLE_LANDING_PAGE }),
-
-    toggleModalOnLoginHandler: () => dispatch({ type: OPEN_MODAL_TO_LOGIN }),
-
-    toggleModalOnSigninHandler: () => dispatch({ type: OPEN_MODAL_TO_REGISTRATION }),
 
     closeModal: () => dispatch({ type: CLOSE_MODAL }),
   };
