@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from '../../CSS/Backdrop.css';
 
-
-const backdrop = props => (
-  props.show ? <div className={classes.Backdrop} onClick={props.clicked} /> : null
-);
+const backdrop = props => {
+  const { show, clicked } = props;
+  return show ? <div className={classes.Backdrop} onClick={clicked} /> : null;
+};
 
 backdrop.propTypes = {
   show: PropTypes.bool,

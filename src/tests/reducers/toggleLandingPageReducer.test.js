@@ -1,10 +1,10 @@
-import reducer from '../store/reducers/toggleLandingPageReducer';
-import {TOGGLE_LANDING_PAGE} from '../store/actions/actionTypes';
+import reducer from '../../store/reducers/toggleLandingPageReducer';
+import { TOGGLE_LANDING_PAGE } from '../../store/actions/actionTypes';
 
 describe('toggleLandingPageReducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
-      showLanding: true
+      showLanding: true,
     });
   });
 
@@ -12,12 +12,12 @@ describe('toggleLandingPageReducer', () => {
     expect(
       reducer(
         {
-          showLanding: true
+          showLanding: true,
         },
         { type: TOGGLE_LANDING_PAGE }
       )
     ).toEqual({
-      showLanding: false
+      showLanding: false,
     });
   });
 });

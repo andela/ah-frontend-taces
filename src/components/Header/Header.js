@@ -5,19 +5,22 @@ import Wrapper from '../../hoc/Wrapper/Wrapper';
 
 const header = props => {
   const topHeaderDivClasses = ['d-flex align-items-center', classes.topheader].join(' ');
+  const { clickSignin, clickSignup } = props;
   return (
     <Wrapper>
       <div className={topHeaderDivClasses}>
         <h1 className="mx-auto pl-2">
-          {' '}
-          Author's Haven
-          {' '}
+          {''}
+
+          Author&apos;s Haven
+
+          {''}
         </h1>
         <div className={classes.bHeader}>
-          <button className={classes.button} onClick={props.clickSignin}>
+          <button className={classes.button} onClick={clickSignin}>
             Sign In
           </button>
-          <button className={classes.button} onClick={props.clickSignup}>
+          <button className={classes.button} onClick={clickSignup}>
             Sign Up
           </button>
         </div>
@@ -111,8 +114,8 @@ header.propTypes = {
 };
 
 header.defaultProps = {
-  clickSignup: () => {},
-  clickSignin: () => {},
+  clickSignup: () => { },
+  clickSignin: () => { },
 };
 
 export default header;
