@@ -1,13 +1,13 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-const wrapper = (props) => {
+const wrapper = props => {
   const { children } = props;
   return <div>{children}</div>;
 };
 
 wrapper.propTypes = {
-  children: propTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default wrapper;

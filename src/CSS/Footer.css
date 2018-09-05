@@ -1,0 +1,12 @@
+.Footer {
+  height: 100px;
+  background-color: #111010;
+  margin-top: 40px;
+}
+
+.Footer p {
+  text-align: center;
+  color: white;
+  font-size: 12px;
+  margin-top: 40px;
+}
