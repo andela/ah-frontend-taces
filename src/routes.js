@@ -9,6 +9,7 @@ import Wrapper from './hoc/Wrapper/Wrapper';
 import Header from './containers/Header/Header';
 import Footer from './components/Foot/Foot';
 import CreateArticle from './components/Articles/createArticle';
+import Profile from './containers/Profile/Profile';
 
 
 const routes = (props) => {
@@ -21,6 +22,7 @@ const routes = (props) => {
           <Switch>
             {authStatus ? <Route path="/articles/:slug" exact component={Article} /> : null}
             {authStatus ? <Route path="/createArticle" exact component={CreateArticle} /> : null}
+            {authStatus ? <Route path="/profile" exact component={Profile} /> : null}
             <Route path="/" exact component={Home} />
             <Redirect from="/" to="/" />
           </Switch>

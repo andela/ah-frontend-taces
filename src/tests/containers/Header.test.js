@@ -15,9 +15,6 @@ describe('<Header />', () => {
     const wrapper = shallow(<Header {...props} />);
     wrapper.setProps({ authStatus: true, ProfileDropdownState: true });
     expect(wrapper.find('h1')).toHaveLength(1);
-
-    const signout = wrapper.find('#signOutLink');
-    expect(signout.length).toBe(1);
-    signout.simulate('click');
+    expect(wrapper.find('div').length).toBe(9);
   });
 });
