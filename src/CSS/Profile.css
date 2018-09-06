@@ -1,0 +1,39 @@
+.mainDiv {
+  height: auto;
+  overflow: auto;
+  width: 100%;
+}
+.profileImgDiv {
+  margin: 0 auto;
+  margin-top: 4px;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+}
+.profileImg {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+.marginTopUD {
+  margin-top: 60px;
+}
+.unOrderedList {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  color: black;
+}
+.linkStyle {
+  color: black;
+}
+.listItemContainer {
+  padding: 10px;
+  padding-left: 0px;
+  float: left;
+}
+.articlesContainer {
+  padding: 10px;
+  padding-left: 0px;
+  float: left;
+}
