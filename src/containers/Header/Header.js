@@ -16,7 +16,11 @@ export class Header extends Component {
   render() {
     const topHeaderDivClasses = ['d-flex align-items-center', classes.topheader].join(' ');
     const {
-      authStatus, ProfileDropdownState, TOGGLE_PROFILE_ACTION, clickSignin, clickSignup,
+      authStatus,
+      ProfileDropdownState,
+      TOGGLE_PROFILE_ACTION,
+      clickSignin,
+      clickSignup,
     } = this.props;
     return (
       <Wrapper>
@@ -44,7 +48,9 @@ export class Header extends Component {
                         <NavLink className="dropdown-item" to="/createArticle">New Article</NavLink>
                         <a className="dropdown-item" href="#">My Articles</a>
                         <div className="dropdown-divider" />
-                        <a className="dropdown-item" href="#">Profile</a>
+                        <NavLink className="dropdown-item" to={{ pathname: '/profile' }} exact>
+                        Profile
+                        </NavLink>
                         <a className="dropdown-item" href="#">Settings</a>
                         <div className="dropdown-divider" />
                         <a className="dropdown-item" id="signOutLink" href="" onClick={signOut}>Sign Out</a>
@@ -158,9 +164,9 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  clickSignup: () => { },
-  clickSignin: () => { },
-  TOGGLE_PROFILE_ACTION: () => { },
+  clickSignup: () => {},
+  clickSignin: () => {},
+  TOGGLE_PROFILE_ACTION: () => {},
   authStatus: false,
   ProfileDropdownState: true,
 };
@@ -183,4 +189,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Header);
