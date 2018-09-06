@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import StarRatingComponent from 'react-star-rating-component';
 import classes from '../../CSS/Article.css';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
+
 import CreateComment from '../Comments/CreateComment';
+import SharingArticleComponent from '../../components/SocialMediaSharing/SharingArticle';
 import ArticleLoader from '../Loaders/ArticleLoader';
 import Recent from '../../components/Recent/Recent';
 
@@ -68,11 +70,11 @@ export class Article extends Component {
   render() {
     const { author, showLoader, data } = this.state;
     const { tags } = data;
+    const { match } = this.props;
 
     const options = {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
     };
-    const { match } = this.props;
     const tagList = tags.map((tag, index) => {
       return (
         <div className={classes.tag_grid} key={index}>
@@ -119,6 +121,8 @@ export class Article extends Component {
                       <span className={`col-12 p-0 float-left ${classes.capitalise}`}>
                         <b>Tags: </b>
                         {tagList}
+                        <br />
+                        <SharingArticleComponent url={`https://authors-haven-front.herokuapp.com/articles/${match.params.slug}`} title={data.title} />
                       </span>
                       <div>
                         <b>Current Rating:</b>
