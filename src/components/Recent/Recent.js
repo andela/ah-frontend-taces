@@ -7,7 +7,7 @@ const recent = () => {
   const articleImg = ['img1', classes.articleImg].join(' ');
   return (
     <Wrapper>
-      <h4>Recent Stories</h4>
+      <h4>RECENT STORIES</h4>
       <div className="row ">
         <div className={articleDiv}>
           <img

@@ -23,7 +23,7 @@ export class Header extends Component {
           <h1 className="mx-auto pl-2">
             {''}
 
-          Author&apos;s Haven
+          AUTHOR&apos;S HAVEN
 
             {''}
           </h1>

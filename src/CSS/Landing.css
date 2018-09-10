@@ -1,7 +1,7 @@
 .Landing {
     height : 100%;
     width: 100%;
-    background:url( https://images.unsplash.com/photo-1527779924457-aec8bd402625?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=374c205ba7b271e5b04a9da4debc113a&auto=format&fit=crop&w=1987&q=80) no-repeat;
+    background:url( ../assets/images/landing_page_background.jpg) no-repeat;
     background-size: cover;
     z-index: 999;
     position: fixed;
