@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
 import classes from '../../CSS/index.css';
 
@@ -17,11 +18,19 @@ const popular = () => {
             alt=""
             className={articleImg}
           />
-          <h5>Classic cars still rule...</h5>
+          <NavLink
+            to="/articles/brooklyn-wireless-workers-vote-to-save-their-union-5d451067-eb5f-4e38-9dd9-ebd7982f35b6">
+            <h5>Classic cars still rule...</h5>
+          </NavLink>
           <p className={classes.titleParagraph}>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
             has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown
             printer took a galley of type and scrambled it to make a type specimen book.
+            <br />
+            <NavLink
+                to="/articles/brooklyn-wireless-workers-vote-to-save-their-union-5d451067-eb5f-4e38-9dd9-ebd7982f35b6">
+                read more
+            </NavLink>
           </p>
           <p className={classes.authorTag}>Author: Riz Ahmed Jan 1st, 2018</p>
         </div>

@@ -19,6 +19,10 @@
 
 a {
   color: #111010;
+  font-family: 'Roboto', sans-serif;
+}
+a:hover{
+  text-decoration: none;
 }
 
 .profile_picture {

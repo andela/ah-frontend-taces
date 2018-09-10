@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import classes from '../../CSS/Header.css';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
 import { TOGGLE_PROFILE_DROPDOWN } from '../../store/actions/actionTypes';
@@ -22,9 +23,7 @@ export class Header extends Component {
         <div className={topHeaderDivClasses}>
           <h1 className="mx-auto pl-2">
             {''}
-
-          AUTHOR&apos;S HAVEN
-
+            <NavLink to="/">AUTHOR&apos;S HAVEN</NavLink>
             {''}
           </h1>
           {authStatus
@@ -80,52 +79,50 @@ export class Header extends Component {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item pr-2">
-                <a className="nav-link" href="">
-                Home
-                </a>
+                <NavLink className="nav-link" to="/">Home</NavLink>
               </li>
               <li className="nav-item pr-2">
-                <a className="nav-link" href="">
+                <a className="nav-link" href="/#">
                 Culture
                 </a>
               </li>
               <li className="nav-item pr-2">
-                <a className="nav-link" href="">
+                <a className="nav-link" href="/#">
                 Sport
                 </a>
               </li>
               <li className="nav-item pr-2">
-                <a className="nav-link" href="">
+                <a className="nav-link" href="/#">
                 Cinema
                 </a>
               </li>
               <li className="nav-item pr-2">
-                <a className="nav-link" href="">
+                <a className="nav-link" href="/#">
                 Music
                 </a>
               </li>
               <li className="nav-item pr-2">
-                <a className="nav-link" href="">
+                <a className="nav-link" href="/#">
                 Politics
                 </a>
               </li>
               <li className="nav-item pr-2">
-                <a className="nav-link" href="">
+                <a className="nav-link" href="/#">
                 Science
                 </a>
               </li>
               <li className="nav-item pr-2">
-                <a className="nav-link" href="">
+                <a className="nav-link" href="/#">
                 Design
                 </a>
               </li>
               <li className="nav-item pr-2">
-                <a className="nav-link" href="">
+                <a className="nav-link" href="/#">
                 Literature
                 </a>
               </li>
               <li className="nav-item pr-2">
-                <a className="nav-link" href="">
+                <a className="nav-link" href="/#">
                 Astronomy
                 </a>
               </li>
