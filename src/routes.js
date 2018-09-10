@@ -1,15 +1,32 @@
 import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import {
+  Route, Switch, Redirect, BrowserRouter,
+} from 'react-router-dom';
+import { connect } from 'react-redux';
 import Home from './containers/Home/Home';
-import Wrapper from './hoc/Wrapper/Wrapper';
+import Article from './containers/Articles/Article';
 
-const routes = () => (
-  <BrowserRouter>
-    <Wrapper>
-      <Switch>
-        <Route path="/" exact component={Home} />
-      </Switch>
-    </Wrapper>
-  </BrowserRouter>
-);
-export default routes;
+
+const routes = (props) => {
+  const { authStatus } = props;
+  return (
+    <div>
+      <BrowserRouter>
+        <Switch>
+          {authStatus ? <Route path="/articles/:slug" exact component={Article} /> : null}
+          <Route path="/" exact component={Home} />
+          <Redirect from="/" to="/" />
+        </Switch>
+      </BrowserRouter>
+    </div>
+  );
+};
+
+const mapStateToProps = state => {
+  // map state to props
+  return {
+    authStatus: state.isAuthentic.isAuthentic,
+  };
+};
+
+export default connect(mapStateToProps)(routes);
