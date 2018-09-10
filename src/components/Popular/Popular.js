@@ -8,7 +8,7 @@ const popular = () => {
   return (
     <Wrapper>
       <h4>
-        Most Popular
+        MOST POPULAR
       </h4>
       <div className="row ">
         <div className={articleDiv}>
