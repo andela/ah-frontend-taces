@@ -39,7 +39,7 @@ export class Header extends Component {
                       <div><small><center>{localStorage.getItem('email')}</center></small></div>
                       <div className="dropdown-divider" />
                       <a className="dropdown-item" href="#">New Article</a>
-                      <a className="dropdown-item" href="#">My Articles</a>
+                      <a className="dropdown-item" href="#">Favourite Articles</a>
                       <div className="dropdown-divider" />
                       <a className="dropdown-item" href="#">Profile</a>
                       <a className="dropdown-item" href="#">Settings</a>
