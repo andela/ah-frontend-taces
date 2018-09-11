@@ -72,7 +72,7 @@ export class PasswordReset extends Component {
           <div className="form-group">
             <input className="form-control no-border" placeholder="Enter email to reset password" type="email" name="passReset" onChange={this.eventListener} required />
             <small id="emailHelp" className="form-text text-muted">
-              <span>Lost in Authors Haven? </span>
+              <span>Lost your way? </span>
               <a href="#" onClick={ShowLogin}> Go back to login.</a>
             </small>
           </div>
