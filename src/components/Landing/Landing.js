@@ -15,7 +15,7 @@ const landing = (props) => {
     >
       <div className={classes.Headline}>
         <div className="col-sm-6">
-          <h4>AUTHOR&apos;S HAVEN</h4>
+          <center><h1>AUTHORS HAVEN</h1></center>
           <span>
             The best thing about a book tour is meeting your imagined readers, staring into their
             lamplit faces, hearing a little about their lives and, for a slender moment anyway,
