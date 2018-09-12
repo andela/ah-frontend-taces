@@ -1,9 +1,10 @@
 import moxios from 'moxios';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { Article } from '../../containers/Articles/Article';
 
 import { fetchPost, sendRating } from '../../containers/lib';
+import { CreateComment } from '../../containers/Comments/CreateComment';
 
 describe('<Article />', () => {
   beforeEach(() => {
@@ -60,4 +61,8 @@ describe('<Article />', () => {
     expect(result).toBeInstanceOf(Promise);
   });
 
+  it('render comments', () => {
+    const wrapper = shallow(<CreateComment />);
+    expect(wrapper).toHaveLength(1);
+  });
 });
