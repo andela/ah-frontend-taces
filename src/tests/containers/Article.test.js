@@ -1,9 +1,9 @@
 import moxios from 'moxios';
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { Article } from '../../containers/Articles/Article';
 
-import { fetchPost } from '../../containers/lib';
+import { fetchPost, sendRating } from '../../containers/lib';
 
 describe('<Article />', () => {
   beforeEach(() => {
@@ -13,18 +13,19 @@ describe('<Article />', () => {
     moxios.uninstall();
   });
 
-  it('fecthes and returns an article', async () => {
-    const props = {
-      match: {
-        params: {
-          slug: 'me-and-william',
-        },
+  const props = {
+    match: {
+      params: {
+        slug: 'me-and-william',
       },
-      authStatus: true,
-    };
+    },
+    authStatus: true,
+  };
 
-    const data = { data: { title: 'this is my article', slug: 'this-is-my-article' } };
-    const wrapper = shallow(<Article {...props} />);
+  const data = { data: { title: 'this is my article', slug: 'this-is-my-article' } };
+  const wrapper = shallow(<Article {...props} />);
+
+  it('fecthes and returns an article', async () => {
     moxios.stubRequest(
       `https://authors-haven-tabs.herokuapp.com/api/articles/search?slug=${
         data.slug
@@ -46,4 +47,17 @@ describe('<Article />', () => {
     const numDivs = wrapper.find('div');
     expect(numDivs).toHaveLength(3);
   });
+
+  it('sends and returns rating', () => {
+    moxios.stubRequest(`/api/articles/${data.slug}/rate/`, {
+      status: 201,
+      response: {
+        amount: 5,
+      },
+    });
+
+    const result = sendRating('me-and-william');
+    expect(result).toBeInstanceOf(Promise);
+  });
+
 });
