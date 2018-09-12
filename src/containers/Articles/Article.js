@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import StarRatingComponent from 'react-star-rating-component';
 import classes from '../../CSS/Article.css';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
 
+
 import ArticleLoader from '../Loaders/ArticleLoader';
+
 
 export class Article extends Component {
   constructor(props) {
@@ -14,6 +17,7 @@ export class Article extends Component {
       data: { tags: [] },
       author: {},
     };
+    this.onStarClick = this.onStarClick.bind(this);
   }
 
   componentDidMount() {
@@ -32,12 +36,34 @@ export class Article extends Component {
           this.setState({
             data: response.data.results.articles[0],
             author: response.data.results.articles[0].author,
+            slug: response.data.results.articles[0].slug,
+            rating: response.data.results.articles[0].rating,
             showLoader: true,
           });
         }
       })
       .catch();
   }
+
+  onStarClick(nextValue) {
+    const { slug } = this.state;
+    axios({
+      url: `https://authors-haven-tabs.herokuapp.com/api/articles/${slug}/rate/`,
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+      data: {
+        amount: nextValue,
+      },
+    })
+      .then((response) => {
+        this.setState({
+          rating: response.data.rating.article.averageRating,
+        });
+      });
+  }
+
 
   render() {
     const { author, showLoader, data } = this.state;
@@ -55,6 +81,8 @@ export class Article extends Component {
         </div>
       );
     });
+
+    const { rating } = this.state;
 
     return (
       <Wrapper>
@@ -91,6 +119,14 @@ export class Article extends Component {
                         <b>Tags: </b>
                         {tagList}
                       </span>
+                      <div>
+                        <b>Current Rating:</b>
+                        {rating}
+                      </div>
+                      <div>
+                        <b>Rate this Article:</b>
+                      </div>
+                      <StarRatingComponent name="rate1" starCount={5} onStarClick={this.onStarClick} renderStarIcon={() => <span><i className="fa fa-star-o" /></span>} />
                     </div>
                   </div>
                 )

@@ -21,3 +21,8 @@
 .tag_grid{
     display: inline-block
 }
+
+label{
+    background: none !important;
+    margin-left: -10px;
+}
