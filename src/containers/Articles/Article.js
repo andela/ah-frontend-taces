@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import StarRatingComponent from 'react-star-rating-component';
 import classes from '../../CSS/Article.css';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
-
-
+import CreateComment from '../Comments/CreateComment';
 import ArticleLoader from '../Loaders/ArticleLoader';
+import Recent from '../../components/Recent/Recent';
 
 
 export class Article extends Component {
@@ -72,6 +72,7 @@ export class Article extends Component {
     const options = {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
     };
+    const { match } = this.props;
     const tagList = tags.map((tag, index) => {
       return (
         <div className={classes.tag_grid} key={index}>
@@ -128,6 +129,8 @@ export class Article extends Component {
                       </div>
                       <StarRatingComponent name="rate1" starCount={5} onStarClick={this.onStarClick} renderStarIcon={() => <span><i className="fa fa-star-o" /></span>} />
                     </div>
+                    <Recent />
+                    <CreateComment slug={match.params.slug} />
                   </div>
                 )
               }
