@@ -64,7 +64,10 @@ export class EditProfileModal extends Component {
         updateChildData(data);
         this.setState({ loadingClass: '' });
       })
-      .catch(() => {});
+      .catch(() => {
+        window.alert('update failed! your bio was too long.');
+        this.setState({ loadingClass: '' });
+      });
   };
 
   handleInputChange = event => {
@@ -86,15 +89,18 @@ export class EditProfileModal extends Component {
     return (
       <Wrapper>
         <div className={loadingClass} />
-        <button
-          className={classes.editProfileBtn}
-          type="button"
-          data-toggle="modal"
-          id="BtnMe"
-          data-target="#exampleModalCenter"
-        >
-          {username}
-        </button>
+        <div className={classes.tooltip}>
+          <button
+            className={classes.editProfileBtn}
+            type="button"
+            data-toggle="modal"
+            id="BtnMe"
+            data-target="#exampleModalCenter"
+          >
+            {username}
+          </button>
+          <span className={classes.tooltiptext}>click here to edit</span>
+        </div>
         <div
           className="modal fade text-left"
           id="exampleModalCenter"
@@ -113,9 +119,9 @@ export class EditProfileModal extends Component {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="modal-body ">
+              <div className="modal-body">
                 <form id="editProfileForm">
-                  <div className="form-group row">
+                  <div className="form-group">
                     <label
                       htmlFor="username"
                       className={`col-md-12 text-left ${classes.labelProfile}`}
@@ -130,7 +136,7 @@ export class EditProfileModal extends Component {
                       />
                     </label>
                   </div>
-                  <div className="form-group row">
+                  <div className="form-group">
                     <div>
                       <div className="col-md-6">
                         <label htmlFor="imagePicker" className="btn btn-outline-dark">

@@ -1,18 +1,25 @@
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import moxios from 'moxios';
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { Profile } from '../../containers/Profile/Profile';
 import { ProfileListItem } from '../../components/Profile/ProfileListItem';
 
-describe('tests profile contianer', () => {
+describe('tests profile container', () => {
   let wrapper;
+  let parentWrapper;
   beforeEach(() => {
     moxios.install();
-    wrapper = mount(<Profile />);
+    parentWrapper = mount(
+      <BrowserRouter>
+        <Profile />
+      </BrowserRouter>,
+    );
+    wrapper = parentWrapper.find(Profile);
   });
   afterEach(() => {
     moxios.uninstall();
-    wrapper.unmount();
+    parentWrapper.unmount();
   });
 
   it('renders without breaking', async () => {
@@ -29,7 +36,7 @@ describe('tests profile contianer', () => {
     it('handles user data response', () => {
       const user = { username: 'username', image: 'sssssss', bio: 'user bio' };
       wrapper.instance().handleResponse('user', user);
-      expect(wrapper.state().user).toBe(user);
+      expect(wrapper.instance().state.user).toBe(user);
     });
   });
 
@@ -56,12 +63,12 @@ describe('tests profile contianer', () => {
   describe('updateChildData', () => {
     it('should update user data sate', () => {
       const oldUser = { username: 'old username', image: 'old image', bio: 'old user bio' };
-      wrapper.setState({
+      wrapper.instance().setState({
         user: oldUser,
       });
       const newUser = { username: 'new username', image: 'new image', bio: 'new user bio' };
       wrapper.instance().updateChildData(newUser);
-      expect(wrapper.state().user).toBe(newUser);
+      expect(wrapper.instance().state.user).toBe(newUser);
     });
   });
 
@@ -107,17 +114,24 @@ describe('tests profile contianer', () => {
   });
 
   it('testing component', () => {
-    wrapper.setState({
+    const compWrapper = shallow(
+      <BrowserRouter>
+        <Profile />
+      </BrowserRouter>,
+    );
+    const comp = compWrapper.find('Profile').dive();
+    comp.instance().setState({
       articles: [
         {
           title: 'title',
           image: 'image',
-          description: 'description',
+          description: 'descriptionXXX',
           likes: '1',
         },
       ],
     });
-    expect(wrapper.find(ProfileListItem)).toHaveLength(1);
+    comp.instance().forceUpdate();
+    expect(comp.find(ProfileListItem)).toHaveLength(1);
   });
 
   it('mocks update info', () => {

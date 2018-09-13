@@ -11,7 +11,7 @@ import Wrapper from '../../../hoc/Wrapper/Wrapper';
 import CreateComment from '../../Comments/CreateComment';
 import SharingArticleComponent from '../../../components/SocialMediaSharing/SharingArticle';
 import ArticleLoader from '../../Loaders/ArticleLoader';
-import RelatedArticles from '../../../components/relatedArticles/relatedArticles';
+import Recent from '../../../components/Recent/Recent';
 
 import Like from '../../Like/Like';
 
@@ -22,6 +22,8 @@ export class ArticleDetail extends Component {
       articleData: {
         tags: [],
       },
+      buttonStatus: 'block',
+      buttonText: 'FOLLOW AUTHOR',
     };
     this.onStarClick = this.onStarClick.bind(this);
   }
@@ -32,9 +34,7 @@ export class ArticleDetail extends Component {
   }
 
   onStarClick(nextValue) {
-    const {
-      match,
-    } = this.props;
+    const { match } = this.props;
     axios({
       url: `https://authors-haven-tabs.herokuapp.com/api/articles/${match.params.slug}/rate/`,
       method: 'POST',
@@ -51,29 +51,28 @@ export class ArticleDetail extends Component {
     });
   }
 
-  fetchArticle = (slug) => axios
-    .get(
-      `https://authors-haven-tabs.herokuapp.com/api/articles/search?slug=${slug}`,
-      {
-        headers: {
-          Authorization: `Token ${localStorage.getItem('token')}`,
-        },
+  fetchArticle = slug => axios
+    .get(`https://authors-haven-tabs.herokuapp.com/api/articles/search?slug=${slug}`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`,
       },
-    )
+    })
     .then(response => response);
 
-  renderArticles = slug => this.fetchArticle(slug)
-    .then(response => {
-      this.handleResponse('articleData', response.data.results.articles[0]);
-      this.handleResponse('author', response.data.results.articles[0].author);
-    });
+  renderArticles = slug => this.fetchArticle(slug).then(response => {
+    this.handleResponse('articleData', response.data.results.articles[0]);
+    this.handleResponse('author', response.data.results.articles[0].author);
+  });
 
   handleResponse = (key, value) => {
-    return (this.setState({
-      [key]: value,
-      showLoader: true,
-    }));
-  }
+    return this.setState(
+      {
+        [key]: value,
+        showLoader: true,
+      },
+      this.hideButton,
+    );
+  };
 
   readTime = () => {
     const { articleData } = this.state;
@@ -84,10 +83,37 @@ export class ArticleDetail extends Component {
     return timeMin;
   };
 
+  followAuthor = () => {
+    const { articleData } = this.state;
+    axios
+      .post(
+        `https://authors-haven-tabs.herokuapp.com/api/users/${articleData.author.username}/follow/`,
+        {},
+        {
+          headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+        },
+      )
+      .then(response => {
+        this.setState({
+          buttonText: 'FOLLOWING AUTHOR',
+        });
+        return response;
+      }).catch(err => err);
+  };
+
+  hideButton = () => {
+    const { articleData } = this.state;
+    const username = localStorage.getItem('username');
+    if (articleData.author.username === username) {
+      this.setState({
+        buttonStatus: 'none',
+      });
+    }
+  };
+
   render() {
     const {
-      showLoader,
-      articleData,
+      showLoader, articleData, buttonStatus, buttonText,
     } = this.state;
 
     const { scrollTop } = this.props;
@@ -103,9 +129,7 @@ export class ArticleDetail extends Component {
     const tagList = articleData.tags.map((tag, index) => {
       return (
         <div className={classes.tag_grid} key={index}>
-          <NavLink
-            to={`/search/?tags&tag=${tag}`}
-            className={classes.tag} key={index} href={tag}>
+          <NavLink to={`/search/?tags&tag=${tag}`} className={classes.tag} key={index} href={tag}>
             {tag}
           </NavLink>
         </div>
@@ -155,7 +179,7 @@ export class ArticleDetail extends Component {
                       &nbsp; | &nbsp;
                       <span className={`${classes.spanDesAuthor} ${classes.lowercase}`}>
                         {this.readTime()}
-                      &nbsp; min read
+                        &nbsp; min read
                       </span>
                     </span>
                     <br />
@@ -192,8 +216,17 @@ export class ArticleDetail extends Component {
                         </span>
                       )}
                     />
+                    <div>
+                      <button
+                        className="btn btn-outline-dark"
+                        onClick={this.followAuthor}
+                        style={{ display: buttonStatus }}
+                      >
+                        {buttonText}
+                      </button>
+                    </div>
                   </div>
-                  <RelatedArticles />
+                  <Recent />
                   <CreateComment slug={match.params.slug} />
                 </div>
               )}
