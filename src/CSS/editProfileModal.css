@@ -7,22 +7,19 @@ form {
   padding-left: 0px;
   font-weight: bold;
   font-size: 40px;
+  float: left;
 }
-.editProfileBtn:hover {
-  color: white;
-  background-color: #111010;
-}
-.loader{
+.loader {
   vertical-align: sub !important;
 }
-.loaderDiv{
+.loaderDiv {
   margin-left: 10px;
 }
-.labelProfile{
+.labelProfile {
   background: none !important;
   color: #000 !important;
 }
-.fileInputButton{
+.fileInputButton {
   display: none;
   position: absolute;
   z-index: 1000;
@@ -32,5 +29,42 @@ form {
   top: 0;
   height: 100%;
   font-size: 24px;
-  width: 100%;
+  width: 60%;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  font-size: 14px;
+  width: 120px;
+  background-color:#111010;
+  color: #fff;
+  text-align: center;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 4px;
+  margin-top: 25px;
+
+  position: absolute;
+  z-index: 5;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.tooltip .tooltiptext {
+  left: 105%; 
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
 }

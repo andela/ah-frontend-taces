@@ -10,6 +10,8 @@ import Header from './containers/Header/Header';
 import Footer from './components/Foot/Foot';
 import CreateArticle from './components/Articles/createArticle';
 import Profile from './containers/Profile/Profile';
+import { FollowGrid } from './containers/FollowGrid/FollowGrid';
+import { FollowerGrid } from './containers/FollowGrid/FollowerGrid';
 
 import ArticleDetail from './containers/Articles/ArticleDetail/ArticleDetail';
 import ArticleList from './containers/Articles/ArticleList/ArticleList';
@@ -26,6 +28,8 @@ const routes = (props) => {
             {authStatus ? <Route path="/createArticle" exact component={CreateArticle} /> : null}
             {authStatus ? <Route path="/profile" exact component={Profile} /> : null}
             {authStatus ? <Route path="/articles" exact component={ArticleList} /> : null}
+            {authStatus ? <Route path="/profile/following" exact component={FollowGrid} /> : null}
+            {authStatus ? <Route path="/profile/followers" exact component={FollowerGrid} /> : null}
             <Route path="/" exact component={Home} />
             <Redirect from="/" to="/" />
           </Switch>

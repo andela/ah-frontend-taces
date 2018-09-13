@@ -1,0 +1,9 @@
+.container {
+  display: inline-grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 8px;
+  margin: auto;
+}
+.followGridIndicator {
+  text-align: center;
+}

@@ -23,9 +23,9 @@ export class ProfileListItem extends Component {
             />
             <a
               className={classes.listLinks}
-              href="https://image.flaticon.com/icons/svg/134/134680.svg"
+              href="#"
             >
-              <span className="listSpans">{likes}</span>
+              <span className={classes.listSpans}>{likes}</span>
             </a>
           </div>
           <div className={classes.listDivs}>
@@ -36,7 +36,7 @@ export class ProfileListItem extends Component {
             />
             <a
               className={classes.listLinks}
-              href="https://image.flaticon.com/icons/svg/134/134680.svg"
+              href="#"
             >
               <span className={classes.listSpans}>1000</span>
             </a>
