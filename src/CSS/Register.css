@@ -1,9 +1,3 @@
-.Register {
-  display: flex;
-  flex-flow: column;
-}
-
-
 .spanerrors {
   margin: 1px auto;
   font-size: 12px;

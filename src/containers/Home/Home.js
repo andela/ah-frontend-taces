@@ -142,6 +142,8 @@ Home.propTypes = {
   showModal: PropTypes.bool,
   toggleLandingPageHandler: PropTypes.func,
   showLandingPage: PropTypes.bool,
+  toggleModalOnLoginHandler: PropTypes.func,
+  history: PropTypes.object,
 };
 
 Home.defaultProps = {
@@ -151,6 +153,8 @@ Home.defaultProps = {
   showModal: false,
   toggleLandingPageHandler: () => {},
   showLandingPage: true,
+  toggleModalOnLoginHandler: () => {},
+  history: {},
 };
 
 const mapStateToProps = state => {

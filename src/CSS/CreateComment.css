@@ -70,6 +70,7 @@
     color:#777;
     font-family:verdana;
     font-size:11px;
+    word-spacing: -2px;
 }
 .actionBox {
     border-top:1px dotted #bbb;

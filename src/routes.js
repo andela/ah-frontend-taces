@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Route, Switch, Redirect, BrowserRouter,
 } from 'react-router-dom';
@@ -31,6 +32,14 @@ const routes = (props) => {
       </BrowserRouter>
     </div>
   );
+};
+
+routes.propTypes = {
+  authStatus: PropTypes.bool,
+};
+
+routes.defaultProps = {
+  authStatus: false,
 };
 
 const mapStateToProps = state => {

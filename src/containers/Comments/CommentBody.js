@@ -31,9 +31,9 @@ export const CommentBody = (props) => {
             <br />
             <span className={classes.sub_text}>
               Commented
-              {' '}
+              &nbsp;
               <Moment fromNow ago>{CommentDate}</Moment>
-              {' '}
+              &nbsp;
               ago.
             </span>
           </p>
