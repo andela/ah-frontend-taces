@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import provideScrollPosition from 'react-provide-scroll-position';
 import StarRatingComponent from 'react-star-rating-component';
 import classes from '../../CSS/Article.css';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
@@ -11,6 +12,8 @@ import SharingArticleComponent from '../../components/SocialMediaSharing/Sharing
 import ArticleLoader from '../Loaders/ArticleLoader';
 import Recent from '../../components/Recent/Recent';
 
+
+import Like from '../Like/Like';
 
 export class Article extends Component {
   constructor(props) {
@@ -68,7 +71,11 @@ export class Article extends Component {
 
 
   render() {
-    const { author, showLoader, data } = this.state;
+    const {
+      author, showLoader, data,
+      slug,
+    } = this.state;
+    const { scrollTop } = this.props;
     const { tags } = data;
     const { match } = this.props;
 
@@ -101,6 +108,9 @@ export class Article extends Component {
                       {data.title}
                     </h1>
                     <div className={`col-10 ${classes.content_enter}`}>
+                      <span className={scrollTop > 363 ? classes.sticky : classes.LikeSpan}>
+                        <Like className={classes.LikeSpan} articleSlug={slug} />
+                      </span>
                       <span className={`col-12 p-0  float-left text-center ${classes.capitalise}`}>
                         {data.description}
                       </span>
@@ -112,10 +122,10 @@ export class Article extends Component {
                         &nbsp;|&nbsp;
                         2 Min read
                       </span>
-
                       <br />
                       <img src={data.image} alt="" className={`${classes.articleImage} ${classes.paragraph2}`} />
                     </div>
+
                     <div className={`col-10 text-justify ${classes.content_enter} ${classes.articleMetaData}`}>
                       <div dangerouslySetInnerHTML={{ __html: data.body }} />
                       <span className={`col-12 p-0 float-left ${classes.capitalise}`}>
@@ -147,10 +157,12 @@ export class Article extends Component {
 }
 Article.propTypes = {
   match: PropTypes.object,
+  scrollTop: PropTypes.number,
 };
 
 Article.defaultProps = {
   match: {},
+  scrollTop: 0,
 };
 
-export default Article;
+export default provideScrollPosition(Article);

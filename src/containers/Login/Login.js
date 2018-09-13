@@ -102,11 +102,12 @@ export class Login extends Component {
                 required
               />
               <small id="emailHelp" className="form-text text-muted">
-                <span>Forgot Password? </span>
-                <a href="#" id="showPasswordReset" onClick={this.passwordReset}>
-                  {' '}
+                <span>
+                Forgot Password? &nbsp;
+                  <a href="#" id="showPasswordReset" onClick={this.passwordReset}>
                   Reset password!
-                </a>
+                  </a>
+                </span>
               </small>
             </div>
 
@@ -120,9 +121,7 @@ export class Login extends Component {
         <FacebookLoginComponent click={this.loader} />
         <GoogleLoginComponent click={this.loader} />
         <center>
-          <span>
-            <small> No Account? </small>
-          </span>
+          <small> No Account? </small>
           <a href="#" onClick={SHOW_SIGNUP}>
             <small>Create One!</small>
           </a>

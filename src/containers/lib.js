@@ -17,3 +17,5 @@ export function sendRating(slug = false) {
 }
 
 export default fetchPost();
+
+

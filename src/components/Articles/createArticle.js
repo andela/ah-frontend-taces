@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import classes from '../../CSS/login.css';
 
 class CreateArticle extends Component {
@@ -145,5 +146,13 @@ class CreateArticle extends Component {
     );
   }
 }
+
+CreateArticle.propTypes = {
+  history: PropTypes.object,
+};
+
+CreateArticle.defaultProps = {
+  history: {},
+};
 
 export default CreateArticle;

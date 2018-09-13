@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import classes from '../../CSS/SocialLogin.css';
 import { LOGIN_SUCCESS, CLOSE_MODAL } from '../../store/actions/actionTypes';
 
@@ -49,6 +50,20 @@ const mapDispatchToProps = dispatch => {
     MAKEAUTHENTIC: () => dispatch({ type: LOGIN_SUCCESS }),
     CLOSE_MODAL_ACTION: () => dispatch({ type: CLOSE_MODAL }),
   };
+};
+
+GoogleLoginComponent.propTypes = {
+  MAKEAUTHENTIC: PropTypes.func,
+  CLOSE_MODAL_ACTION: PropTypes.func,
+  click: PropTypes.func,
+
+};
+
+GoogleLoginComponent.defaultProps = {
+  MAKEAUTHENTIC: () => {},
+  CLOSE_MODAL_ACTION: () => {},
+  click: () => {},
+
 };
 
 export default connect(null, mapDispatchToProps)(GoogleLoginComponent);

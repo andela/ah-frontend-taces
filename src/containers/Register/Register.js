@@ -133,14 +133,14 @@ export class Register extends Component {
           || (!touched.username
             || !touched.email
             || !touched.password) ? (
-              <input className="btn btn-dark" type="submit" value="Register" disabled />
+              <button className="btn btn-dark" type="submit" disabled> Register</button>
             ) : (
-              <input className="btn btn-dark" type="submit" value="Register" disabled={loading} />
+              <button className="btn btn-dark" type="submit" disabled={loading}>Register</button>
             )}
           <br />
           <center>
-            <span><small> Already have an account? </small></span>
-            <a onClick={onSwitchToLogin}><small>Login!</small></a>
+            <small> Already have an account? </small>
+            <a href="#" onClick={onSwitchToLogin}><small>Login!</small></a>
           </center>
         </form>
       </div>

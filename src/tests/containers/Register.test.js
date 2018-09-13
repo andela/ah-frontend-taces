@@ -54,7 +54,7 @@ describe('<Register />', () => {
     expect(validationInstance).toBeTruthy();
     expect(validationInstance.type).toBe('span');
     expect(validationInstance.props.children).toEqual(
-      'Username needs to be at least 6 characters long.'
+      'Username needs to be at least 6 characters long.',
     );
   });
 
@@ -84,7 +84,7 @@ describe('<Register />', () => {
     expect(validationInstance).toBeTruthy();
     expect(validationInstance.type).toBe('span');
     expect(validationInstance.props.children).toEqual(
-      'Password needs to be at least 8 characters long.'
+      'Password needs to be at least 8 characters long.',
     );
   });
 
@@ -100,7 +100,7 @@ describe('<Register />', () => {
     expect(validationInstance).toBeTruthy();
     expect(validationInstance.type).toBe('span');
     expect(validationInstance.props.children).toEqual(
-      'Please include at least a number and any of these symbols in your password @,#,!,$,%,&,*,(,)'
+      'Please include at least a number and any of these symbols in your password @,#,!,$,%,&,*,(,)',
     );
   });
 
@@ -112,14 +112,14 @@ describe('<Register />', () => {
   it('should show spinner on loading true', () => {
     wrapper.setProps({ loading: true });
     expect(wrapper.find(Spinner)).toHaveLength(1);
-    const submitButton = wrapper.find('input[type="submit"]').props();
+    const submitButton = wrapper.find('.btn-dark').props();
     expect(submitButton.disabled).toBeTruthy();
   });
 
   it('should not show spinner on loading false', () => {
     wrapper.setProps({ loading: false });
     expect(wrapper.find(Spinner)).toHaveLength(0);
-    const submitButton = wrapper.find('input[type="submit"]').props();
+    const submitButton = wrapper.find('.btn-dark').props();
     expect(submitButton.disabled).toBeTruthy();
   });
 

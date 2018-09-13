@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import classes from '../../CSS/SocialLogin.css';
 import { LOGIN_SUCCESS, CLOSE_MODAL } from '../../store/actions/actionTypes';
 
 export class FacebookLoginComponent extends Component {
   responseFacebook = fbResponse => {
-    console.log(fbResponse.accessToken);
     const data = { user: { fbauth_token: fbResponse.accessToken } };
     axios
       .post('https://authors-haven-tabs.herokuapp.com/api/users/fbauth/', data)
@@ -44,6 +44,20 @@ export class FacebookLoginComponent extends Component {
   }
 }
 
+FacebookLoginComponent.propTypes = {
+  MAKEAUTHENTIC: PropTypes.func,
+  CLOSE_MODAL_ACTION: PropTypes.func,
+  click: PropTypes.func,
+
+};
+
+FacebookLoginComponent.defaultProps = {
+  MAKEAUTHENTIC: () => {},
+  CLOSE_MODAL_ACTION: () => {},
+  click: () => {},
+
+};
+
 const mapDispatchToProps = dispatch => {
   // map dispatch to props
   return {
@@ -52,6 +66,7 @@ const mapDispatchToProps = dispatch => {
     CLOSE_MODAL_ACTION: () => dispatch({ type: CLOSE_MODAL }),
   };
 };
+
 
 export default connect(
   null,
