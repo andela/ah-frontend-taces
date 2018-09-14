@@ -7,7 +7,7 @@ import classes from '../../CSS/Article.css';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
 import CreateComment from '../Comments/CreateComment';
 import ArticleLoader from '../Loaders/ArticleLoader';
-import Recent from '../../components/Recent/Recent';
+import RelatedArticles from '../../components/relatedArticles/relatedArticles';
 
 
 export class Article extends Component {
@@ -129,7 +129,7 @@ export class Article extends Component {
                       </div>
                       <StarRatingComponent name="rate1" starCount={5} onStarClick={this.onStarClick} renderStarIcon={() => <span><i className="fa fa-star-o" /></span>} />
                     </div>
-                    <Recent />
+                    <RelatedArticles />
                     <CreateComment slug={match.params.slug} />
                   </div>
                 )
