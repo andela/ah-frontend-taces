@@ -10,7 +10,7 @@ import Wrapper from '../../hoc/Wrapper/Wrapper';
 import CreateComment from '../Comments/CreateComment';
 import SharingArticleComponent from '../../components/SocialMediaSharing/SharingArticle';
 import ArticleLoader from '../Loaders/ArticleLoader';
-import Recent from '../../components/Recent/Recent';
+import RelatedArticles from '../../components/relatedArticles/relatedArticles';
 
 
 import Like from '../Like/Like';
@@ -143,7 +143,7 @@ export class Article extends Component {
                       </div>
                       <StarRatingComponent name="rate1" starCount={5} onStarClick={this.onStarClick} renderStarIcon={() => <span><i className="fa fa-star-o" /></span>} />
                     </div>
-                    <Recent />
+                    <RelatedArticles />
                     <CreateComment slug={match.params.slug} />
                   </div>
                 )
