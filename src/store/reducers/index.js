@@ -7,6 +7,7 @@ import toggleModalReducer from './toggleModalReducer';
 import authReducer from './loginReducer';
 import passwordResetReducer from './passwordResetReducer';
 import registerReducer from './registerReducer';
+import articleListReducer from './articleListReducer';
 
 // combine all reducers into one root reducer
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   isAuthentic: authReducer,
   loading: passwordResetReducer,
   registration: registerReducer,
+  articleList: articleListReducer,
 });
 
 // creates a store

@@ -1,6 +1,7 @@
 .articleImage {
   width: 100%;
 }
+
 .tag {
   padding: 6px 3px;
   border-radius: 5px;
@@ -50,11 +51,29 @@
   }
 }
 
-label {
-  background: none !important;
-  margin-left: -10px;
-}
-
 .spanDesAuthor {
   display: inline-block;
+}
+
+label{
+    background: none !important;
+    margin-left: -10px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.Article {
+    height: 100;
+    border: 1px solid green;
+    margin: 6px;
+    padding: 8px;
+}
+
+.articlesList {
+    margin: 0;
+    padding: 0;
+}
+
+.articlesList li {
+    list-style: none;
 }
