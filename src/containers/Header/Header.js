@@ -91,9 +91,7 @@ export class Header extends Component {
                   <NavLink className="nav-link" to="/">Home</NavLink>
                 </li>
                 <li className="nav-item pr-2">
-                  <a className="nav-link" href="/#">
-                Culture
-                  </a>
+                  <NavLink className="nav-link" to="/articles">Articles</NavLink>
                 </li>
                 <li className="nav-item pr-2">
                   <a className="nav-link" href="/#">

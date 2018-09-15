@@ -35,7 +35,7 @@
     }
   }
 .article_loader {
-  display: inline-block;
+  margin:0 auto;
   position: relative;
   width: 160px;
   height: 140px;
