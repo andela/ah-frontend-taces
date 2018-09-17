@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import provideScrollPosition from 'react-provide-scroll-position';
 import StarRatingComponent from 'react-star-rating-component';
+import readingTime from 'reading-time';
 import classes from '../../../CSS/Article.css';
 import Wrapper from '../../../hoc/Wrapper/Wrapper';
 
@@ -74,6 +75,15 @@ export class ArticleDetail extends Component {
     }));
   }
 
+  readTime = () => {
+    const { articleData } = this.state;
+    let timeMin = Math.floor(readingTime(`${articleData.body}`).minutes);
+    if (timeMin <= 1) {
+      timeMin = 1;
+    }
+    return timeMin;
+  };
+
   render() {
     const {
       showLoader,
@@ -140,9 +150,13 @@ export class ArticleDetail extends Component {
                       }`}
                     >
                       {articleData.author.username}
-                      &nbsp;|&nbsp;
+                      &nbsp; | &nbsp;
                       {new Date(articleData.created_at).toLocaleDateString('en-BR', options)}
-                      &nbsp;|&nbsp; 2 Min read
+                      &nbsp; | &nbsp;
+                      <span className={`${classes.spanDesAuthor} ${classes.lowercase}`}>
+                        {this.readTime()}
+                      &nbsp; min read
+                      </span>
                     </span>
                     <br />
                     <img

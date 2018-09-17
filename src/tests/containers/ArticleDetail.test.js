@@ -115,6 +115,25 @@ describe('displaying article by slug ', () => {
     expect(result).toBeInstanceOf(Promise);
   });
 
+  it('return one minute for any short article', async () => {
+    const props = {
+      match: {
+        params: {
+          slug: 'slug',
+        },
+      },
+    };
+
+    const wrapper = mount(<ArticleDetail {...props} />);
+    moxios.stubRequest('https://authors-haven-tabs.herokuapp.com/api/articles/search?slug=me-and-william', {
+      status: 200,
+      response: data,
+    });
+
+    const timeTaken = await wrapper.instance().readTime();
+    expect(timeTaken).toBe(1);
+  });
+
   it('render comments', () => {
     const wrapper = shallow(<CreateComment />);
     expect(wrapper).toHaveLength(1);
