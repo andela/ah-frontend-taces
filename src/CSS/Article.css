@@ -77,3 +77,7 @@ label{
 .articlesList li {
     list-style: none;
 }
+
+.lowercase {
+  text-transform: lowercase !important;
+}
