@@ -31,8 +31,14 @@ export class CreateComment extends Component {
         },
       )
       .then(response => {
+        let makeClickable = true;
+        if (response.data.results.length === 0 || response.data.next === null) {
+          makeClickable = false;
+        }
         const sorteData = this.sorter(response.data.results);
-        this.setState({ CommentsData: sorteData, next: response.data.next });
+        this.setState({
+          CommentsData: sorteData, next: response.data.next, makeClickable,
+        });
       });
   }
 
@@ -99,7 +105,7 @@ export class CreateComment extends Component {
 
   render() {
     const {
-      CommentsData, body, LoadingComments, LoadingMessage, errorMsg,
+      CommentsData, body, LoadingComments, LoadingMessage, errorMsg, makeClickable,
     } = this.state;
     return (
       <div className={classes.detailBox}>
@@ -135,7 +141,7 @@ export class CreateComment extends Component {
                     <h6 className={classes.loading}>{LoadingMessage}</h6>
                   )
                   : (
-                    <NavLink id="nav" className={classes.loadMore} onClick={this.Pagination} to="#"><h6>Click to view more comments</h6></NavLink>
+                    <NavLink id="nav" className={classes.loadMore} onClick={makeClickable ? this.Pagination : null} to="#"><h6>{makeClickable ? 'Click to view more comments.' : 'Got something in mind? Add a comment.'}</h6></NavLink>
                   )
                 }
               </center>

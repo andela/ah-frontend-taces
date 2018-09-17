@@ -12,10 +12,15 @@ it('<CommentBody />', () => {
 
 describe('tests for comments', () => {
   let wrapper;
-  const CommentData = [
-    { body: 'body', created_at: '12/11/10', author: { userename: 'myUser', image: 'url.com' } },
-    { body: 'body', created_at: '12/11/10', author: { userename: 'myUser', image: 'url.com' } },
-  ];
+  const CommentData = {
+    data: {
+      next: 'someUrl.com',
+      results: [
+        { body: 'body', created_at: '12/11/10', author: { userename: 'myUser', image: 'url.com' } },
+        { body: 'body', created_at: '12/11/10', author: { userename: 'myUser', image: 'url.com' } },
+      ],
+    },
+  };
   const createSpy = (toSpy) => jest.spyOn(wrapper.instance(), toSpy);
 
   beforeEach(() => {
@@ -63,9 +68,10 @@ describe('tests for comments', () => {
     expect(eventListener).toHaveBeenCalled();
   });
 
-  it('should call event Pagination function', () => {
+  it('should call Pagination function', () => {
     const eventListener = createSpy('Pagination');
     wrapper.instance().forceUpdate();
+    wrapper.setState({ makeClickable: true });
     wrapper.find('#nav').simulate('click', { preventDefault: () => {} });
     expect(eventListener).toHaveBeenCalled();
   });
