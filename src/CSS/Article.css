@@ -50,7 +50,11 @@
   }
 }
 
-label{
-    background: none !important;
-    margin-left: -10px;
+label {
+  background: none !important;
+  margin-left: -10px;
+}
+
+.spanDesAuthor {
+  display: inline-block;
 }

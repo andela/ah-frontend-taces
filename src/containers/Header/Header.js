@@ -29,7 +29,7 @@ export class Header extends Component {
             <h1 className="mx-auto pl-2">
               {''}
 
-              <NavLink to="/">AUTHOR&apos;S HAVEN</NavLink>
+              <NavLink to="/">AUTHORS HAVEN</NavLink>
 
               {''}
             </h1>
