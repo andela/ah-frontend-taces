@@ -1,28 +1,11 @@
 .shareText {
   font-weight: bold;
 }
-.Demo__container {
-  display: inline-flex;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  align-items: center;
-}
+
 .Demo__container > div {
-  margin-left: 20px;
   cursor: pointer;
+  margin-top: 20px;
 }
-.Demo__some-network {
-  vertical-align: top;
-  text-align: center;
-  cursor: pointer;
-  display: none;
-}
-
-.Demo__some-network__share-button {
-  cursor: pointer;
-  margin-right: 20px;
-}
-
-.Demo__some-network__share-button:hover:not(:active) {
-  opacity: 0.75;
+.buttonContainer{
+  margin-top: 10px;
 }

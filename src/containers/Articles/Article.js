@@ -12,7 +12,6 @@ import SharingArticleComponent from '../../components/SocialMediaSharing/Sharing
 import ArticleLoader from '../Loaders/ArticleLoader';
 import RelatedArticles from '../../components/relatedArticles/relatedArticles';
 
-
 import Like from '../Like/Like';
 
 export class Article extends Component {
@@ -61,26 +60,26 @@ export class Article extends Component {
       data: {
         amount: nextValue,
       },
-    })
-      .then((response) => {
-        this.setState({
-          rating: response.data.rating.article.averageRating,
-        });
+    }).then(response => {
+      this.setState({
+        rating: response.data.rating.article.averageRating,
       });
+    });
   }
-
 
   render() {
     const {
-      author, showLoader, data,
-      slug,
+      author, showLoader, data, slug,
     } = this.state;
     const { scrollTop } = this.props;
     const { tags } = data;
     const { match } = this.props;
 
     const options = {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     };
     const tagList = tags.map((tag, index) => {
       return (
@@ -99,55 +98,83 @@ export class Article extends Component {
         <div className="container">
           <div className="row">
             <div className="col-12">
-              {!showLoader
-                ? (<center><ArticleLoader /></center>)
-                : (
-                  <div>
-                    <h5 className="text-center">Literature</h5>
-                    <h1 className={`text-center ${classes.articleTitle}`}>
-                      {data.title}
-                    </h1>
-                    <div className={`col-10 ${classes.content_enter}`}>
-                      <span className={scrollTop > 363 ? classes.sticky : classes.LikeSpan}>
-                        <Like className={classes.LikeSpan} articleSlug={slug} />
-                      </span>
-                      <span className={`col-12 p-0  float-left text-center ${classes.capitalise}`}>
-                        {data.description}
-                      </span>
-                      <br />
-                      <span className={`col-12 p-0 text-center float-left ${classes.capitalise}`}>
-                        {author.username}
-                        &nbsp;|&nbsp;
-                        {new Date(data.created_at).toLocaleDateString('en-BR', options)}
-                        &nbsp;|&nbsp;
-                        2 Min read
-                      </span>
-                      <br />
-                      <img src={data.image} alt="" className={`${classes.articleImage} ${classes.paragraph2}`} />
-                    </div>
-
-                    <div className={`col-10 text-justify ${classes.content_enter} ${classes.articleMetaData}`}>
-                      <div dangerouslySetInnerHTML={{ __html: data.body }} />
-                      <span className={`col-12 p-0 float-left ${classes.capitalise}`}>
-                        <b>Tags: </b>
-                        {tagList}
-                        <br />
-                        <SharingArticleComponent url={`https://authors-haven-front.herokuapp.com/articles/${match.params.slug}`} title={data.title} />
-                      </span>
-                      <div>
-                        <b>Current Rating:</b>
-                        {rating}
-                      </div>
-                      <div>
-                        <b>Rate this Article:</b>
-                      </div>
-                      <StarRatingComponent name="rate1" starCount={5} onStarClick={this.onStarClick} renderStarIcon={() => <span><i className="fa fa-star-o" /></span>} />
-                    </div>
-                    <RelatedArticles />
-                    <CreateComment slug={match.params.slug} />
+              {!showLoader ? (
+                <center>
+                  <ArticleLoader />
+                </center>
+              ) : (
+                <div>
+                  <h5 className="text-center">Literature</h5>
+                  <center>
+                    <h1 className={`text-center ${classes.articleTitle}`}>{data.title}</h1>
+                  </center>
+                  <div className={scrollTop > 363 ? classes.sticky : classes.LikeSpan}>
+                    <Like className={classes.LikeSpan} articleSlug={slug} />
+                    <SharingArticleComponent
+                      url={`https://authors-haven-front.herokuapp.com/articles/${
+                        match.params.slug
+                      }`}
+                      title={data.title}
+                    />
                   </div>
-                )
-              }
+
+                  <div className={`col-10 ${classes.content_enter}`}>
+                    <span
+                      className={`col-12 text-center ${classes.capitalise} ${
+                        classes.spanDesAuthor
+                      }`}
+                    >
+                      {data.description}
+                    </span>
+                    <span
+                      className={`col-12 text-center ${classes.capitalise} ${
+                        classes.spanDesAuthor
+                      }`}
+                    >
+                      {author.username}
+                      &nbsp;|&nbsp;
+                      {new Date(data.created_at).toLocaleDateString('en-BR', options)}
+                      &nbsp;|&nbsp; 2 Min read
+                    </span>
+                    <br />
+                    <img
+                      src={data.image}
+                      alt=""
+                      className={`${classes.articleImage} ${classes.paragraph2}`}
+                    />
+                  </div>
+                  <div
+                    className={`col-10 text-justify ${classes.content_enter} ${
+                      classes.articleMetaData
+                    }`}
+                  >
+                    <div dangerouslySetInnerHTML={{ __html: data.body }} />
+                    <span className={`col-12 p-0 float-left ${classes.capitalise}`}>
+                      <b>Tags: </b>
+                      {tagList}
+                    </span>
+                    <div>
+                      <b>Average Rating: </b>
+                      {rating}
+                    </div>
+                    <div>
+                      <b>Rate this Article:</b>
+                    </div>
+                    <StarRatingComponent
+                      name="rate1"
+                      starCount={5}
+                      onStarClick={this.onStarClick}
+                      renderStarIcon={() => (
+                        <span>
+                          <i className="fa fa-star-o" />
+                        </span>
+                      )}
+                    />
+                  </div>
+                  <RelatedArticles />
+                  <CreateComment slug={match.params.slug} />
+                </div>
+              )}
             </div>
           </div>
         </div>
