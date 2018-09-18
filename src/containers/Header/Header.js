@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import {
+  NavLink,
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from '../../CSS/Header.css';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
-import { TOGGLE_PROFILE_DROPDOWN, OPEN_MODAL_TO_LOGIN, OPEN_MODAL_TO_REGISTRATION } from '../../store/actions/actionTypes';
+import {
+  TOGGLE_PROFILE_DROPDOWN,
+  OPEN_MODAL_TO_LOGIN,
+  OPEN_MODAL_TO_REGISTRATION,
+} from '../../store/actions/actionTypes';
 
 const signOut = () => {
   localStorage.removeItem('token');
@@ -13,6 +19,39 @@ const signOut = () => {
 };
 
 export class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      context: 'author',
+      value: '',
+    };
+  }
+
+  setContext = event => {
+    const cont = event.target.value;
+    this.setState({
+      context: cont,
+    });
+  };
+
+  setValue = event => {
+    const val = event.target.value;
+    this.setState({
+      value: val,
+    });
+  };
+
+  handleSearch = event => {
+    event.preventDefault();
+    const { context, value } = this.state;
+
+    if (context === '' || value === '') {
+      window.alert('Please provide all search parameters');
+    } else {
+      window.location.assign(`/search/${context}/${value}`);
+    }
+  };
+
   render() {
     const topHeaderDivClasses = ['d-flex align-items-center', classes.topheader].join(' ');
     const {
@@ -22,6 +61,7 @@ export class Header extends Component {
       clickSignin,
       clickSignup,
     } = this.props;
+
     return (
       <Wrapper>
         <div className="container py-5">
@@ -33,44 +73,56 @@ export class Header extends Component {
 
               {''}
             </h1>
-            {authStatus
-              ? (
-                <div>
-                  <a href="#" onClick={TOGGLE_PROFILE_ACTION}>
-                    <img src={localStorage.getItem('picture')} className={classes.profile_picture} alt="Cinque Terre" width="50" height="50" />
-                  </a>
-                  {ProfileDropdownState
-                    ? (
-                      <div className={classes.profile_drop_down}>
-                        <center>{localStorage.getItem('username')}</center>
-                        <div><small><center>{localStorage.getItem('email')}</center></small></div>
-                        <div className="dropdown-divider" />
-                        <NavLink className="dropdown-item" to="/createArticle">New Article</NavLink>
-                        <a className="dropdown-item" href="#">Favourite Articles</a>
-                        <div className="dropdown-divider" />
-                        <NavLink className="dropdown-item" to={{ pathname: '/profile' }} exact>
-                        Profile
-                        </NavLink>
-                        <a className="dropdown-item" href="#">Settings</a>
-                        <div className="dropdown-divider" />
-                        <a className="dropdown-item" id="signOutLink" href="" onClick={signOut}>Sign Out</a>
-                      </div>
-                    )
-                    : null
-                  }
-                </div>
-              )
-              : (
-                <div className={classes.bHeader}>
-                  <button className={classes.button} onClick={clickSignin}>
-            Sign In
-                  </button>
-                  <button className={classes.button} onClick={clickSignup}>
-            Sign Up
-                  </button>
-                </div>
-              )
-      }
+            {authStatus ? (
+              <div>
+                <a href="#" onClick={TOGGLE_PROFILE_ACTION}>
+                  <img
+                    src={localStorage.getItem('picture')}
+                    className={classes.profile_picture}
+                    alt="Cinque Terre"
+                    width="50"
+                    height="50"
+                  />
+                </a>
+                {ProfileDropdownState ? (
+                  <div className={classes.profile_drop_down}>
+                    <center>{localStorage.getItem('username')}</center>
+                    <div>
+                      <small>
+                        <center>{localStorage.getItem('email')}</center>
+                      </small>
+                    </div>
+                    <div className="dropdown-divider" />
+                    <NavLink className="dropdown-item" to="/createArticle">
+                      New Article
+                    </NavLink>
+                    <a className="dropdown-item" href="#">
+                      Favourite Articles
+                    </a>
+                    <div className="dropdown-divider" />
+                    <NavLink className="dropdown-item" to={{ pathname: '/profile' }} exact>
+                      Profile
+                    </NavLink>
+                    <a className="dropdown-item" href="#">
+                      Settings
+                    </a>
+                    <div className="dropdown-divider" />
+                    <a className="dropdown-item" id="signOutLink" href="" onClick={signOut}>
+                      Sign Out
+                    </a>
+                  </div>
+                ) : null}
+              </div>
+            ) : (
+              <div className={classes.bHeader}>
+                <button className={classes.button} onClick={clickSignin}>
+                  Sign In
+                </button>
+                <button className={classes.button} onClick={clickSignup}>
+                  Sign Up
+                </button>
+              </div>
+            )}
           </div>
 
           <nav className="navbar navbar-expand-lg pl-0 pr-0">
@@ -95,54 +147,67 @@ export class Header extends Component {
                 </li>
                 <li className="nav-item pr-2">
                   <a className="nav-link" href="/#">
-                Sport
+                    Culture
                   </a>
                 </li>
                 <li className="nav-item pr-2">
                   <a className="nav-link" href="/#">
-                Cinema
+                    Sport
                   </a>
                 </li>
                 <li className="nav-item pr-2">
                   <a className="nav-link" href="/#">
-                Music
+                    Cinema
                   </a>
                 </li>
                 <li className="nav-item pr-2">
                   <a className="nav-link" href="/#">
-                Politics
+                    Music
                   </a>
                 </li>
                 <li className="nav-item pr-2">
                   <a className="nav-link" href="/#">
-                Science
+                    Politics
                   </a>
                 </li>
                 <li className="nav-item pr-2">
                   <a className="nav-link" href="/#">
-                Design
+                    Science
                   </a>
                 </li>
                 <li className="nav-item pr-2">
                   <a className="nav-link" href="/#">
-                Literature
-                  </a>
-                </li>
-                <li className="nav-item pr-2">
-                  <a className="nav-link" href="/#">
-                Astronomy
+                    Design
                   </a>
                 </li>
               </ul>
-              <form className="form-inline my-2 my-lg-0">
+              <form className="form-inline my-2 my-lg-0 col-md-7">
+                <select
+                  id="contextSelector"
+                  name="contextSelector"
+                  className={`form-control col-md-3 ${classes.selectStyle}`}
+                  onChange={event => this.setContext(event)}
+                >
+                  <option value="author">Author</option>
+                  <option value="title">Title</option>
+                  <option value="tag">Tag</option>
+                </select>
                 <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-                <button className="btn btn-dark" type="submit">
-              Search
+                  id="searchInput"
+                  name="searchInput"
+                  className="form-control mr-sm-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  onChange={event => this.setValue(event)}
+                />
+                <button
+                  className="btn btn-dark"
+                  id="searchBtn"
+                  onClick={event => this.handleSearch(event)}
+                  exact
+                >
+                Search
                 </button>
               </form>
             </div>

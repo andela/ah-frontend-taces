@@ -60,6 +60,7 @@ describe('test follow grid', () => {
       expect(spy).toBeCalled();
     });
   });
+
   describe('handleResponse', () => {
     it('handles user data response', () => {
       const list = [
