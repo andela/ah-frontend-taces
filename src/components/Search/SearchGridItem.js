@@ -13,19 +13,18 @@ export class SearchGridItem extends Component {
       image = 'http://res.cloudinary.com/ronzalo777/image/upload/v1537184865/pov5uovdstk7ovjouxhk.png';
     }
     return (
-      <div className={classes.listOuterContainer}>
-        <div className={classes.imageContainer}>
+      <div className={classes.itemComponent}>
+        <div>
           <img
-            className={classes.listImage}
             src={image}
             alt=""
           />
         </div>
         <NavLink to={`/articles/${slug}`}>
-          <h3 className={classes.listTitle}>{title}</h3>
+          <h3 className={classes.itemHeader}>{title}</h3>
         </NavLink>
-        <p className={classes.listDescription}>{description}</p>
-        <span className={classes.listSpans}>{author}</span>
+        <p className={classes.itemDescription}>{description}</p>
+        <p className={classes.itemAuthor}>{author}</p>
       </div>
     );
   }

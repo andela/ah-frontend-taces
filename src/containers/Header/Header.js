@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import {
   NavLink,
@@ -49,7 +50,8 @@ export class Header extends Component {
     if (context === '' || value === '') {
       window.alert('Please provide all search parameters');
     } else {
-      window.location.assign(`/search/${context}/${value}`);
+      const { history: { push } } = this.props;
+      push(`/search/${context}/${value}`);
     }
   };
 
@@ -253,4 +255,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Header);
+)(withRouter(Header));

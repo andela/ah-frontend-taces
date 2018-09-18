@@ -1,6 +1,8 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { shallow, mount } from 'enzyme';
 import { BrowserRouter } from 'react-router-dom';
+import configureStore from 'redux-mock-store';
 import { Header } from '../../containers/Header/Header';
 
 describe('<Header />', () => {
@@ -59,8 +61,8 @@ describe('<Header />', () => {
     });
   });
 
-  describe('onSearch', () => {
-    it.skip('mocks search funtionality', () => {
+  describe('setContext', () => {
+    it('changes selected context', () => {
       const props = {
         authStatus: true,
         ProfileDropdownState: true,
@@ -69,16 +71,32 @@ describe('<Header />', () => {
         clickSignup: () => {},
       };
 
-      const parentWrapper = mount(
-        <BrowserRouter>
-          <Header {...props} />
-        </BrowserRouter>,
-      );
-      const wrapper = parentWrapper.find(Header);
-      const spy = jest.spyOn(wrapper.instance(), 'handleSearch');
+      const wrapper = shallow(<Header {...props} />);
+      const spy = jest.spyOn(wrapper.instance(), 'setContext');
       wrapper.instance().forceUpdate();
 
-      wrapper.find('#searchBtn').simulate('click', { preventDefault: () => {} });
+      const newChange = wrapper.find('select[name="contextSelector"]');
+      newChange.simulate('change', { target: { value: 'Author', name: 'contextSelector' } });
+      expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('setValue', () => {
+    it('changes entered value', () => {
+      const props = {
+        authStatus: true,
+        ProfileDropdownState: true,
+        TOGGLE_PROFILE_ACTION: () => {},
+        clickSignin: () => {},
+        clickSignup: () => {},
+      };
+
+      const wrapper = shallow(<Header {...props} />);
+      const spy = jest.spyOn(wrapper.instance(), 'setValue');
+      wrapper.instance().forceUpdate();
+
+      const newChange = wrapper.find('input[name="searchInput"]');
+      newChange.simulate('change', { target: { value: 'phillip', name: 'searchInput' } });
       expect(spy).toHaveBeenCalled();
     });
   });
