@@ -1,0 +1,16 @@
+.content_enter {
+  margin: 0 auto;
+}
+
+.mainErrorText {
+  font-size: 30px;
+  font-family: 'Mallanna',
+    sans-serif;
+}
+
+.btn_color {
+  color: #fff !important;
+}
+.padding_4_footer {
+  padding-bottom: 263px;
+}
