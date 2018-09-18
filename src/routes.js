@@ -12,6 +12,8 @@ import CreateArticle from './components/Articles/createArticle';
 import Profile from './containers/Profile/Profile';
 import { FollowGrid } from './containers/FollowGrid/FollowGrid';
 import { FollowerGrid } from './containers/FollowGrid/FollowerGrid';
+import Error403Handler from './containers/ErrorHandlers/Error403Handler/Error403Handler';
+import Error404Handler from './containers/ErrorHandlers/Error404Handler/Error404Handler';
 
 import ArticleDetail from './containers/Articles/ArticleDetail/ArticleDetail';
 import ArticleList from './containers/Articles/ArticleList/ArticleList';
@@ -24,14 +26,33 @@ const routes = (props) => {
         <Wrapper>
           <Header />
           <Switch>
-            {authStatus ? <Route path="/articles/:slug" exact component={ArticleDetail} /> : null}
-            {authStatus ? <Route path="/createArticle" exact component={CreateArticle} /> : null}
-            {authStatus ? <Route path="/profile" exact component={Profile} /> : null}
-            {authStatus ? <Route path="/articles" exact component={ArticleList} /> : null}
-            {authStatus ? <Route path="/profile/following" exact component={FollowGrid} /> : null}
-            {authStatus ? <Route path="/profile/followers" exact component={FollowerGrid} /> : null}
             <Route path="/" exact component={Home} />
-            <Redirect from="/" to="/" />
+            {authStatus
+              ? <Route path="/articles/:slug" exact component={ArticleDetail} />
+              : <Route path="/articles/:slug" exact component={Error403Handler} />
+            }
+            {authStatus
+              ? <Route path="/createArticle" exact component={CreateArticle} />
+              : <Route path="/createArticle" exact component={Error403Handler} />
+            }
+            {authStatus
+              ? <Route path="/profile" exact component={Profile} />
+              : <Route path="/profile" exact component={Error403Handler} />
+            }
+            {authStatus
+              ? <Route path="/articles" exact component={ArticleList} />
+              : <Route path="/articles" exact component={Error403Handler} />
+            }
+            {authStatus
+              ? <Route path="/profile/following" exact component={FollowGrid} />
+              : <Route path="/profile/following" exact component={Error403Handler} />
+            }
+            {authStatus
+              ? <Route path="/profile/followers" exact component={FollowerGrid} />
+              : <Route path="/profile/followers" exact component={Error403Handler} />
+            }
+            <Route component={Error404Handler} />
+            <Redirect from="/" to="/errors" />
           </Switch>
           <Footer />
         </Wrapper>

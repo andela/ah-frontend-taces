@@ -1,12 +1,15 @@
 .Footer {
-  height: 100px;
+  position: relative;
+  height: 130px;
   background-color: #111010;
   margin-top: 40px;
+  width: 100%;
+  bottom: 0;
 }
 
 .Footer p {
   text-align: center;
   color: white;
   font-size: 12px;
-  margin-top: 40px;
+  padding-top: 17px;
 }
