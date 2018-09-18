@@ -14,6 +14,7 @@ form {
 }
 .loaderDiv {
   margin-left: 10px;
+  width: 100px;
 }
 .labelProfile {
   background: none !important;
@@ -67,4 +68,11 @@ form {
   border-width: 5px;
   border-style: solid;
   border-color: transparent black transparent transparent;
+}
+.imagePicker{
+  margin-top: 12px;
+}
+
+.phantom{
+  margin: 0 auto;
 }

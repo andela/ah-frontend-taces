@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
 import classes from '../../CSS/editProfileModal.css';
 import loginclasses from '../../CSS/login.css';
+import { Loader } from '../Loader/Loader';
 
 export class EditProfileModal extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ export class EditProfileModal extends Component {
     this.state = {
       newUsername: null,
       imageUrl: null,
-      imageUploadState: null,
+      imageUploadState: 'none',
       emptyFieldState: true,
       newBio: null,
     };
@@ -23,7 +24,7 @@ export class EditProfileModal extends Component {
 
   fileUploadHandler = picture => {
     this.setState({
-      imageUploadState: `fa fa-spinner fa-spin ${classes.loader}`,
+      imageUploadState: 'block',
     });
     const CLOUDINARY_APIKEY = process.env.REACT_APP_CLOUDINARY_API_KEY;
     const PRESET_URL = process.env.REACT_APP_CLOUDINARY_PRESET_URL;
@@ -43,7 +44,7 @@ export class EditProfileModal extends Component {
     }).then(response => {
       this.setState({
         imageUrl: response.data.url,
-        imageUploadState: `fa fa-2x fa-check ${classes.loader}`,
+        imageUploadState: 'none',
       });
     });
   };
@@ -84,7 +85,10 @@ export class EditProfileModal extends Component {
   render() {
     const { bio, username } = this.props;
 
-    const { imageUploadState, emptyFieldState, loadingClass } = this.state;
+    const {
+      imageUploadState,
+      emptyFieldState, loadingClass,
+    } = this.state;
 
     return (
       <Wrapper>
@@ -121,10 +125,10 @@ export class EditProfileModal extends Component {
               </div>
               <div className="modal-body">
                 <form id="editProfileForm">
-                  <div className="form-group">
+                  <div>
                     <label
                       htmlFor="username"
-                      className={`col-md-12 text-left ${classes.labelProfile}`}
+                      className={`col-sm-12 text-left ${classes.labelProfile}`}
                     >
                       Username
                       <input
@@ -138,12 +142,12 @@ export class EditProfileModal extends Component {
                   </div>
                   <div className="form-group">
                     <div>
-                      <div className="col-md-6">
-                        <label htmlFor="imagePicker" className="btn btn-outline-dark">
-                          <span>
-                            <i className="fa fa-cloud-upload" />
-                            &nbsp;Upload Image
-                          </span>
+                      <div className="col-sm-4 float-left">
+                        <label
+                          htmlFor="imagePicker"
+                          className={`btn btn-outline-dark ${classes.imagePicker}`}
+                        >
+                          Upload Image
                           <input
                             type="file"
                             onChange={this.fileSelectedHandler}
@@ -153,12 +157,12 @@ export class EditProfileModal extends Component {
                           />
                         </label>
                       </div>
-                    </div>
-                    <div className={classes.loaderDiv}>
-                      <i className={imageUploadState} />
+                      <div clasName="col-sm-12" style={{ display: imageUploadState }}>
+                        <Loader />
+                      </div>
                     </div>
                   </div>
-                  <div className="form-group">
+                  <div className="form-group float-left col-sm-12 p-0">
                     <span className="text-left ">Bio</span>
                     <textarea
                       className="form-control"

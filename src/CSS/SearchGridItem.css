@@ -1,0 +1,39 @@
+.imageContainer {
+  width: 398px;
+  height: 250px;
+  overflow: hidden;
+}
+.listImage {
+  width: 100%;
+  height: auto;
+}
+.listTitle {
+  width: 350px;
+  font-family: Arial;
+  margin-left: 25px;
+  margin-bottom: 4px;
+}
+.listDescription {
+  width: 350px;
+  font-family: Arial;
+  margin-left: 25px;
+  margin-bottom: 6px;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+}
+
+.listDivs {
+  margin-right: 8px;
+  float: left;
+}
+.listOuterContainer {
+  width: 400px;
+  height: 450px;
+  border: 1px solid black;
+  margin-top: 25px;
+}
+.listSpans {
+  margin-left: 25px;
+}

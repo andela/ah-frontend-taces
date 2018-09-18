@@ -47,3 +47,7 @@ a:hover{
   color: gray;
   font-size: 10px;
 }
+
+.selectStyle{
+  margin-right:6px; 
+}

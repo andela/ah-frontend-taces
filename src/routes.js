@@ -14,6 +14,7 @@ import { FollowGrid } from './containers/FollowGrid/FollowGrid';
 import { FollowerGrid } from './containers/FollowGrid/FollowerGrid';
 import Error403Handler from './containers/ErrorHandlers/Error403Handler/Error403Handler';
 import Error404Handler from './containers/ErrorHandlers/Error404Handler/Error404Handler';
+import { SearchGrid } from './containers/Search/SearchGrid';
 
 import ArticleDetail from './containers/Articles/ArticleDetail/ArticleDetail';
 import ArticleList from './containers/Articles/ArticleList/ArticleList';
@@ -27,6 +28,13 @@ const routes = (props) => {
         <Wrapper>
           <Header />
           <Switch>
+            {authStatus ? <Route path="/articles/:slug" exact component={ArticleDetail} /> : null}
+            {authStatus ? <Route path="/createArticle" exact component={CreateArticle} /> : null}
+            {authStatus ? <Route path="/profile" exact component={Profile} /> : null}
+            {authStatus ? <Route path="/articles" exact component={ArticleList} /> : null}
+            {authStatus ? <Route path="/profile/following" exact component={FollowGrid} /> : null}
+            {authStatus ? <Route path="/profile/followers" exact component={FollowerGrid} /> : null}
+            {authStatus ? <Route path="/search/:context/:value" exact component={SearchGrid} /> : null}
             <Route path="/" exact component={Home} />
             {authStatus
               ? <Route path="/articles/:slug" exact component={ArticleDetail} />
