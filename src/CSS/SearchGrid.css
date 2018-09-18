@@ -1,10 +1,5 @@
 .container {
-    display: inline-grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 8px;
-    margin: auto;
-  }
-  .searchGridIndicator {
-    text-align: center;
-  }
-  
+  column-count: 3;
+  column-gap: 1em;
+  height: auto;
+}
