@@ -14,6 +14,7 @@ import ArticleLoader from '../../Loaders/ArticleLoader';
 import Recent from '../../../components/Recent/Recent';
 
 import Like from '../../Like/Like';
+import Bookmark from '../../../components/Bookmark/Bookmark';
 
 export class ArticleDetail extends Component {
   constructor(props) {
@@ -158,6 +159,10 @@ export class ArticleDetail extends Component {
                       }`}
                       title={articleData.title}
                     />
+                    <Bookmark
+                      className={classes.LikeSpan}
+                      favorited={articleData.favorited}
+                      articleSlug={match.params.slug} />
                   </div>
 
                   <div className={`col-10 ${classes.content_enter}`}>
