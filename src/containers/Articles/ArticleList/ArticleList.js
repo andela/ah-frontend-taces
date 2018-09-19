@@ -6,6 +6,7 @@ import ArticleLoader from '../../Loaders/ArticleLoader';
 import ArticleListItem from '../ArticleListItem/ArticleListItem';
 import { LOAD_MORE_ARTICLES } from '../../../store/actions/actionTypes';
 import { fetchArticles } from '../../../store/actions/articleListActions';
+import classes from '../../../CSS/index.css';
 
 export class ArticleList extends Component {
   componentDidMount() {
@@ -19,15 +20,13 @@ export class ArticleList extends Component {
     } = this.props;
     onLoadMoreArticles();
     onFetchArticles(page, items);
-  }
+  };
 
   render() {
-    const {
-      articles, hasMore, items,
-    } = this.props;
+    const { articles, hasMore, items } = this.props;
 
     return (
-      <div className="container">
+      <div className={classes.allArticlesContainer}>
         <h5>RECENT STORIES</h5>
         <InfiniteScroll
           dataLength={items.length}
@@ -39,16 +38,12 @@ export class ArticleList extends Component {
             <p style={{ textAlign: 'center' }}>
               <b>THE VERY END! NO MORE ARTICLES</b>
             </p>
-            )}
+          )}
         >
-          <div className="row">
-            {
-              articles.map((article, index) => (
-                <div className="col-md-4" key={index}>
-                  <ArticleListItem {...article} />
-                </div>
-              ))
-            }
+          <div className={classes.recentArticlesContainer}>
+            {articles.map((article, index) => (
+              <ArticleListItem {...article} key={index} />
+            ))}
           </div>
         </InfiniteScroll>
       </div>
@@ -72,4 +67,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ArticleList);

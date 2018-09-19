@@ -1,5 +1,18 @@
+.allArticlesContainer {
+  width: 80%;
+  margin: 0 auto;
+}
 .articleDiv {
+  text-align: center;
+}
+.recentArticlesContainer {
+  column-count: 3;
+  column-gap: 1em;
+}
+.recentArticleDiv {
   padding: 4px;
+  text-align: center;
+  -webkit-column-break-inside: avoid;
 }
 
 h4 {
@@ -18,17 +31,23 @@ h4 {
 }
 
 .articleImg {
-  width: 350px;
-  height: 200px;
+  width: 100%;
+}
+.viewMoreContainer {
+  width: 100%;
+  margin: 0 auto;
+}
+.viewMoreButton {
+  color: white;
+  font-size: 26px;
+  padding: 16px 20px !important;
+  background: rgb(17, 18, 26);
+  border-radius: 4px;
+  margin: 40px 0px 40px;
 }
 
-.imgWrapper{
-  max-width: 470px;
-  max-height: 260px;
-  overflow: hidden;
-}
-
-.imgWrapper .articleImg{
-  width:100%;
-  height:auto;
+.viewMoreButton:hover {
+  cursor: pointer;
+  color: black;
+  background: rgb(255, 255, 255);
 }
