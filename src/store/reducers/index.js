@@ -11,6 +11,7 @@ import articleListReducer from './articleListReducer';
 import articleDetailReducer from './articleDetailReducer';
 import articleTextCommentReducer from './articleTextCommentReducer';
 import notificationReducer from './notificationReducer';
+import overlayToggleReducer from './overlayToggleReducer';
 
 // combine all reducers into one root reducer
 const rootReducer = combineReducers({
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   articleDetail: articleDetailReducer,
   articleTextComment: articleTextCommentReducer,
   notifications: notificationReducer,
+  overlayReducer: overlayToggleReducer,
 });
 
 // creates a store

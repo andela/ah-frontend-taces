@@ -43,3 +43,7 @@ export const ALL_NOTIFICATIONS = 'ALL_NOTIFICATIONS';
 export const FETCH_MORE = 'FETCH_MORE';
 export const READ = 'READ';
 export const TOGGLE_MUTE_NOTIFICATIONS = 'TOGGLE_MUTE_NOTIFICATIONS';
+
+// Overlay
+export const OPEN_OVERLAY = 'OPEN_OVERLAY';
+export const CLOSE_OVERLAY = 'CLOSE_OVERLAY';

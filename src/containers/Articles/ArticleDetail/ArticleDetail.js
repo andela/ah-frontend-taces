@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import StarRatingComponent from 'react-star-rating-component';
 import readingTime from 'reading-time';
+import Popover from 'react-popover';
 import classes from '../../../CSS/Article.css';
 import Wrapper from '../../../hoc/Wrapper/Wrapper';
 
@@ -12,12 +13,17 @@ import CreateComment from '../../Comments/CreateComment';
 import SharingArticleComponent from '../../../components/SocialMediaSharing/SharingArticle';
 import ArticleLoader from '../../Loaders/ArticleLoader';
 import Recent from '../../../components/Recent/Recent';
-
 import Like from '../../Like/Like';
 import Bookmark from '../../../components/Bookmark/Bookmark';
 import TextComment from '../TextComment/TextComment';
-import { SHOW_ARTICLE_TEXT_COMMENT_BOX, HIDE_ARTICLE_TEXT_COMMENT_BOX } from '../../../store/actions/actionTypes';
+import {
+  SHOW_ARTICLE_TEXT_COMMENT_BOX,
+  HIDE_ARTICLE_TEXT_COMMENT_BOX,
+  OPEN_OVERLAY,
+  CLOSE_OVERLAY,
+} from '../../../store/actions/actionTypes';
 import { Error404 } from '../../../components/Errors/Error404/Error404';
+import ReportArticleComponent from '../../../components/Overlays/ReportArticleOverlay';
 
 export class ArticleDetail extends Component {
   constructor(props) {
@@ -30,6 +36,7 @@ export class ArticleDetail extends Component {
       buttonText: 'FOLLOW AUTHOR',
       selectedText: '',
       numArticles: 0,
+      popoverIsOpen: false,
     };
     this.onStarClick = this.onStarClick.bind(this);
   }
@@ -50,7 +57,7 @@ export class ArticleDetail extends Component {
       data: {
         amount: nextValue,
       },
-    }).then((response) => {
+    }).then(response => {
       this.setState({
         rating: response.data.rating.article.averageRating,
       });
@@ -109,7 +116,8 @@ export class ArticleDetail extends Component {
           buttonText: 'FOLLOWING AUTHOR',
         });
         return response;
-      }).catch(err => err);
+      })
+      .catch(err => err);
   };
 
   hideButton = () => {
@@ -124,7 +132,7 @@ export class ArticleDetail extends Component {
     }
   };
 
-  selectText = (event) => {
+  selectText = event => {
     event.stopPropagation();
     const { toggleOnTextCommentBox, toggleOffTextCommentBox } = this.props;
     if (window.getSelection().toString().length > 500 && toggleOnTextCommentBox) {
@@ -133,28 +141,46 @@ export class ArticleDetail extends Component {
 
     if (
       window.getSelection().toString().length >= 2
-      && window.getSelection().toString().length <= 500) {
+      && window.getSelection().toString().length <= 500
+    ) {
       const selectedText = window.getSelection().toString();
       this.setState({ selectedText });
       toggleOnTextCommentBox();
     }
-  }
+  };
+
+  handleReportClick = () => {
+    const { OPEN_REPORT_OVERLAY } = this.props;
+    OPEN_REPORT_OVERLAY();
+  };
+
+  togglePopover = ({ toState }) => {
+    const { popoverIsOpen } = this.state;
+    const popoverIs = typeof toState === 'boolean' ? toState : !popoverIsOpen;
+    this.setState({
+      popoverIsOpen: popoverIs,
+    });
+  };
 
   render() {
     const {
-      showLoader, articleData, buttonStatus, buttonText,
+      showLoader,
+      articleData,
+      buttonStatus,
+      buttonText,
       numArticles,
+      popoverIsOpen,
     } = this.state;
     if (numArticles === 1 && showLoader) {
-      const { scrollTop } = this.props;
-      const { match } = this.props;
-
       const options = {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
       };
+      const {
+        scrollTop, match, openOverlay, CLOSE_REPORT_OVERLAY,
+      } = this.props;
 
       const tagList = articleData.tags.map((tag, index) => {
         return (
@@ -168,8 +194,23 @@ export class ArticleDetail extends Component {
       const { rating, selectedText } = this.state;
       const { showTextCommentBox, toggleOffTextCommentBox } = this.props;
 
+      const popoverProps = {
+        isOpen: popoverIsOpen,
+        preferPlace: null,
+        place: null,
+        onOuterAction: () => this.togglePopover(false),
+        body: [
+          <div key="b" className={classes.reportButtonContainer}>
+            <button onClick={this.handleReportClick} className={classes.reportButton}>
+              Report this article
+            </button>
+          </div>,
+        ],
+      };
+
       return (
         <Wrapper>
+          <ReportArticleComponent display={openOverlay} closeOverlay={CLOSE_REPORT_OVERLAY} />
           <div className="container">
             <div className="row">
               <div className="col-12">
@@ -182,8 +223,11 @@ export class ArticleDetail extends Component {
                     <h5 className="text-center">Literature</h5>
                     <h1 className={`text-center ${classes.articleTitle}`}>{articleData.title}</h1>
                     <div
-                      className={showTextCommentBox
-                        ? classes.TextCommentSpan : classes.TextCommentSpanShowNone}
+                      className={
+                        showTextCommentBox
+                          ? classes.TextCommentSpan
+                          : classes.TextCommentSpanShowNone
+                      }
                     >
                       <TextComment articleSlug={match.params.slug} selected={selectedText} />
                     </div>
@@ -198,45 +242,45 @@ export class ArticleDetail extends Component {
                       <Bookmark
                         className={classes.LikeSpan}
                         favorited={articleData.favorited}
-                        articleSlug={match.params.slug} />
+                        articleSlug={match.params.slug}
+                      />
                     </div>
 
                     <div className={`col-10 ${classes.content_enter}`}>
                       <span
-                          className={`col-12 text-center ${classes.capitalise} ${
-                            classes.spanDesAuthor
-                          }`}
-                        >
+                        className={`col-12 text-center ${classes.capitalise} ${
+                          classes.spanDesAuthor
+                        }`}
+                      >
                         {articleData.description}
                       </span>
                       <span
-                          className={`col-12 text-center ${classes.capitalise} ${
-                            classes.spanDesAuthor
-                          }`}
-                        >
+                        className={`col-12 text-center ${classes.capitalise} ${
+                          classes.spanDesAuthor
+                        }`}
+                      >
                         {articleData.author.username}
-                          &nbsp; | &nbsp;
+                        &nbsp; | &nbsp;
                         {new Date(articleData.created_at).toLocaleDateString('en-BR', options)}
-                          &nbsp; | &nbsp;
+                        &nbsp; | &nbsp;
                         <span className={`${classes.spanDesAuthor} ${classes.lowercase}`}>
                           {this.readTime()}
-                            &nbsp; min read
+                          &nbsp; min read
                         </span>
-                          &nbsp; | &nbsp;
+                        &nbsp; | &nbsp;
                         <span className={`${classes.spanDesAuthor}`}>
                           <span className="fa fa-eye" />
                           &nbsp;
                           {articleData.viewsCount}
-                          &nbsp;
-                          views
+                          &nbsp; views
                         </span>
                       </span>
                       <br />
                       <img
-                          src={articleData.image}
-                          alt=""
-                          className={`${classes.articleImage} ${classes.paragraph2}`}
-                        />
+                        src={articleData.image}
+                        alt=""
+                        className={`${classes.articleImage} ${classes.paragraph2}`}
+                      />
                     </div>
                     <div
                       className={`col-10 text-justify ${classes.content_enter} ${
@@ -244,11 +288,15 @@ export class ArticleDetail extends Component {
                       }`}
                     >
                       <div
-                      onDoubleClick={
-                        (event) => { event.stopPropagation(); toggleOffTextCommentBox(); }}>
+                        onDoubleClick={event => {
+                          event.stopPropagation();
+                          toggleOffTextCommentBox();
+                        }}
+                      >
                         <div
-                      onMouseUp={(event) => this.selectText(event)}
-                      dangerouslySetInnerHTML={{ __html: articleData.body }} />
+                          onMouseUp={event => this.selectText(event)}
+                          dangerouslySetInnerHTML={{ __html: articleData.body }}
+                        />
                         <span className={`col-12 p-0 float-left ${classes.capitalise}`}>
                           <b>Tags:&nbsp; </b>
                           {tagList}
@@ -261,28 +309,36 @@ export class ArticleDetail extends Component {
                         <b>Rate this Article:</b>
                       </div>
                       <StarRatingComponent
-                          name="rate1"
-                          starCount={5}
-                          onStarClick={this.onStarClick}
-                          renderStarIcon={() => (
-                            <span>
-                              <i className="fa fa-star-o" />
-                            </span>
-                          )}
-                        />
+                        name="rate1"
+                        starCount={5}
+                        onStarClick={this.onStarClick}
+                        renderStarIcon={() => (
+                          <span>
+                            <i className="fa fa-star-o" />
+                          </span>
+                        )}
+                      />
                       <div>
                         <button
-                            className="btn btn-outline-dark"
-                            onClick={this.followAuthor}
-                            style={{ display: buttonStatus }}
-                          >
+                          className="btn btn-outline-dark"
+                          onClick={this.followAuthor}
+                          style={{ display: buttonStatus }}
+                        >
                           {buttonText}
                         </button>
+                      </div>
+                      <div>
+                        <Popover {...popoverProps} className={classes.myPopOver}>
+                          <button onClick={this.togglePopover} className={classes.moreButton}>
+                            <i className="fas fa-ellipsis-h" />
+                          </button>
+                        </Popover>
                       </div>
                     </div>
                     <Recent />
                     <CreateComment slug={match.params.slug} />
-                  </div>)}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -290,9 +346,7 @@ export class ArticleDetail extends Component {
       );
     }
     if (numArticles === 0 && showLoader) {
-      return (
-        <Error404 />
-      );
+      return <Error404 />;
     }
     return (
       <center>
@@ -321,6 +375,7 @@ ArticleDetail.defaultProps = {
 const mapStateToProps = state => {
   return {
     showTextCommentBox: state.articleDetail.showTextCommentBox,
+    openOverlay: state.overlayReducer.openOverlay,
   };
 };
 
@@ -328,7 +383,12 @@ const mapDispatchToProps = dispatch => {
   return {
     toggleOnTextCommentBox: () => dispatch({ type: SHOW_ARTICLE_TEXT_COMMENT_BOX }),
     toggleOffTextCommentBox: () => dispatch({ type: HIDE_ARTICLE_TEXT_COMMENT_BOX }),
+    OPEN_REPORT_OVERLAY: () => dispatch({ type: OPEN_OVERLAY }),
+    CLOSE_REPORT_OVERLAY: () => dispatch({ type: CLOSE_OVERLAY }),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleDetail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ArticleDetail);
