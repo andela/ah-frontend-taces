@@ -24,7 +24,7 @@ describe('ArticleList', () => {
 
   it('should render articles without breaking', () => {
     expect(wrapper.find('InfiniteScroll')).toHaveLength(1);
-    expect(wrapper.find('div').length).toBe(4);
+    expect(wrapper.find('div').length).toBe(2);
   });
 
   it('should call the right function', () => {
