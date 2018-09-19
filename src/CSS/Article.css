@@ -75,29 +75,45 @@
   display: inline-block;
 }
 
-label{
-    background: none !important;
-    margin-left: -10px;
-    border-radius: 5px;
-    margin-right: 5px;
+label {
+  background: none !important;
+  margin-left: -10px;
+  border-radius: 5px;
+  margin-right: 5px;
 }
 
 .Article {
-    height: 100;
-    border: 1px solid green;
-    margin: 6px;
-    padding: 8px;
+  height: 100;
+  margin: 6px;
+  padding: 8px;
 }
 
 .articlesList {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .articlesList li {
-    list-style: none;
+  list-style: none;
 }
 
 .lowercase {
   text-transform: lowercase !important;
+}
+.reportButtonContainer {
+  background: #212529;
+  border-radius: 4px;
+}
+.reportButton {
+  background: rgba(0, 0, 0, 0);
+  font-size: 16px;
+  cursor: pointer;
+  margin: 20px;
+  border: none;
+  color: white;
+}
+.moreButton {
+  margin: 0;
+  padding: 0;
+  border: none;
 }
