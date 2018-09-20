@@ -10,8 +10,7 @@ import classes from '../../../CSS/index.css';
 
 export class ArticleList extends Component {
   componentDidMount() {
-    const { onFetchArticles, page, items } = this.props;
-    onFetchArticles(page, items);
+    this.LoadMoreArticles();
   }
 
   LoadMoreArticles = () => {

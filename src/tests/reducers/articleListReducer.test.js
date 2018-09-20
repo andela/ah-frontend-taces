@@ -6,7 +6,7 @@ import {
 } from '../../store/actions/actionTypes';
 
 const initialState = {
-  items: Array.from({ length: 5 }),
+  items: Array.from({ length: 1 }),
   articles: [],
   page: 1,
   hasMore: true,
@@ -94,13 +94,6 @@ describe('registerReducer', () => {
   it('should change hasMore when no more articles', () => {
     const hasMore = false;
 
-    const initialState = {
-      items: Array.from({ length: 5 }),
-      articles: [],
-      page: 1,
-      hasMore: true,
-    };
-
     const action = {
       type: END_LOADING_ARTICLES,
     };
@@ -111,16 +104,9 @@ describe('registerReducer', () => {
 
   it('should LoadMore articles', () => {
     const nextPage = 2;
-    const currentItems = Array.from({ length: 5 });
-    const newItems = currentItems.concat(Array.from({ length: 5 }));
+    const currentItems = Array.from({ length: 1 });
+    const newItems = currentItems.concat(Array.from({ length: 1 }));
     const canLoadMore = true;
-
-    const initialState = {
-      items: Array.from({ length: 5 }),
-      articles: [],
-      page: 1,
-      hasMore: true,
-    };
 
     const action = {
       type: LOAD_MORE_ARTICLES,
