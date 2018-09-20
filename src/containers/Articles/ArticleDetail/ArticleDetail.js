@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import provideScrollPosition from 'react-provide-scroll-position';
 import StarRatingComponent from 'react-star-rating-component';
 import readingTime from 'reading-time';
 import classes from '../../../CSS/Article.css';
@@ -15,6 +15,8 @@ import Recent from '../../../components/Recent/Recent';
 
 import Like from '../../Like/Like';
 import Bookmark from '../../../components/Bookmark/Bookmark';
+import TextComment from '../TextComment/TextComment';
+import { SHOW_ARTICLE_TEXT_COMMENT_BOX, HIDE_ARTICLE_TEXT_COMMENT_BOX } from '../../../store/actions/actionTypes';
 
 export class ArticleDetail extends Component {
   constructor(props) {
@@ -25,6 +27,7 @@ export class ArticleDetail extends Component {
       },
       buttonStatus: 'block',
       buttonText: 'FOLLOW AUTHOR',
+      selectedText: '',
     };
     this.onStarClick = this.onStarClick.bind(this);
   }
@@ -112,6 +115,22 @@ export class ArticleDetail extends Component {
     }
   };
 
+  selectText = (event) => {
+    event.stopPropagation();
+    const { toggleOnTextCommentBox, toggleOffTextCommentBox } = this.props;
+    if (window.getSelection().toString().length > 500 && toggleOnTextCommentBox) {
+      toggleOffTextCommentBox();
+    }
+
+    if (
+      window.getSelection().toString().length >= 2
+      && window.getSelection().toString().length <= 500) {
+      const selectedText = window.getSelection().toString();
+      this.setState({ selectedText });
+      toggleOnTextCommentBox();
+    }
+  }
+
   render() {
     const {
       showLoader, articleData, buttonStatus, buttonText,
@@ -136,7 +155,8 @@ export class ArticleDetail extends Component {
         </div>
       );
     });
-    const { rating } = this.state;
+    const { rating, selectedText } = this.state;
+    const { showTextCommentBox, toggleOffTextCommentBox } = this.props;
 
     return (
       <Wrapper>
@@ -151,6 +171,12 @@ export class ArticleDetail extends Component {
                 <div>
                   <h5 className="text-center">Literature</h5>
                   <h1 className={`text-center ${classes.articleTitle}`}>{articleData.title}</h1>
+                  <div
+                    className={showTextCommentBox
+                      ? classes.TextCommentSpan : classes.TextCommentSpanShowNone}
+                  >
+                    <TextComment articleSlug={match.params.slug} selected={selectedText} />
+                  </div>
                   <div className={scrollTop > 363 ? classes.sticky : classes.LikeSpan}>
                     <Like className={classes.LikeSpan} articleSlug={match.params.slug} />
                     <SharingArticleComponent
@@ -199,12 +225,17 @@ export class ArticleDetail extends Component {
                       classes.articleMetaData
                     }`}
                   >
-                    <div dangerouslySetInnerHTML={{ __html: articleData.body }} />
-                    <span className={`col-12 p-0 float-left ${classes.capitalise}`}>
-                      <b>Tags: </b>
-                      {tagList}
-                    </span>
-                    <div>
+                    <div
+                    onDoubleClick={
+                      (event) => { event.stopPropagation(); toggleOffTextCommentBox(); }}>
+                      <div
+                    onMouseUp={(event) => this.selectText(event)}
+                    dangerouslySetInnerHTML={{ __html: articleData.body }} />
+                      <span className={`col-12 p-0 float-left ${classes.capitalise}`}>
+                        <b>Tags: </b>
+                        {tagList}
+                      </span>
+                      <div />
                       <b>Average Rating: </b>
                       {rating}
                     </div>
@@ -246,11 +277,30 @@ export class ArticleDetail extends Component {
 ArticleDetail.propTypes = {
   match: PropTypes.object,
   scrollTop: PropTypes.number,
+  showTextCommentBox: PropTypes.bool,
+  toggleOnTextCommentBox: PropTypes.func,
+  toggleOffTextCommentBox: PropTypes.func,
 };
 
 ArticleDetail.defaultProps = {
   match: {},
   scrollTop: 0,
+  showTextCommentBox: false,
+  toggleOnTextCommentBox: () => {},
+  toggleOffTextCommentBox: () => {},
 };
 
-export default provideScrollPosition(ArticleDetail);
+const mapStateToProps = state => {
+  return {
+    showTextCommentBox: state.articleDetail.showTextCommentBox,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleOnTextCommentBox: () => dispatch({ type: SHOW_ARTICLE_TEXT_COMMENT_BOX }),
+    toggleOffTextCommentBox: () => dispatch({ type: HIDE_ARTICLE_TEXT_COMMENT_BOX }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleDetail);
