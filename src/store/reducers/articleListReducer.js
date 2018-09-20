@@ -4,7 +4,7 @@ import {
 } from '../actions/actionTypes';
 
 const initialState = {
-  items: Array.from({ length: 5 }),
+  items: Array.from({ length: 1 }),
   articles: [],
   page: 1,
   hasMore: true,
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         page: state.page + 1,
         items: state.items.concat(Array.from({
-          length: 5,
+          length: 1,
         })),
       };
     case END_LOADING_ARTICLES:

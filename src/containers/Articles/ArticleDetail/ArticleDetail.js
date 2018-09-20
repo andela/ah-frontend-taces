@@ -17,6 +17,7 @@ import Like from '../../Like/Like';
 import Bookmark from '../../../components/Bookmark/Bookmark';
 import TextComment from '../TextComment/TextComment';
 import { SHOW_ARTICLE_TEXT_COMMENT_BOX, HIDE_ARTICLE_TEXT_COMMENT_BOX } from '../../../store/actions/actionTypes';
+import { Error404 } from '../../../components/Errors/Error404/Error404';
 
 export class ArticleDetail extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ export class ArticleDetail extends Component {
       buttonStatus: 'block',
       buttonText: 'FOLLOW AUTHOR',
       selectedText: '',
+      numArticles: 0,
     };
     this.onStarClick = this.onStarClick.bind(this);
   }
@@ -48,7 +50,7 @@ export class ArticleDetail extends Component {
       data: {
         amount: nextValue,
       },
-    }).then(response => {
+    }).then((response) => {
       this.setState({
         rating: response.data.rating.article.averageRating,
       });
@@ -64,8 +66,13 @@ export class ArticleDetail extends Component {
     .then(response => response);
 
   renderArticles = slug => this.fetchArticle(slug).then(response => {
-    this.handleResponse('articleData', response.data.results.articles[0]);
-    this.handleResponse('author', response.data.results.articles[0].author);
+    const articlesArray = response.data.results;
+    if (articlesArray.count > 0) {
+      this.handleResponse('articleData', articlesArray.articles[0]);
+      this.handleResponse('numArticles', articlesArray.count);
+    } else {
+      this.handleResponse('numArticles', articlesArray.count);
+    }
   });
 
   handleResponse = (key, value) => {
@@ -106,12 +113,14 @@ export class ArticleDetail extends Component {
   };
 
   hideButton = () => {
-    const { articleData } = this.state;
+    const { articleData, numArticles } = this.state;
     const username = localStorage.getItem('username');
-    if (articleData.author.username === username) {
-      this.setState({
-        buttonStatus: 'none',
-      });
+    if (numArticles > 0) {
+      if (articleData.author.username === username) {
+        this.setState({
+          buttonStatus: 'none',
+        });
+      }
     }
   };
 
@@ -134,142 +143,153 @@ export class ArticleDetail extends Component {
   render() {
     const {
       showLoader, articleData, buttonStatus, buttonText,
+      numArticles,
     } = this.state;
+    if (numArticles === 1 && showLoader) {
+      const { scrollTop } = this.props;
+      const { match } = this.props;
 
-    const { scrollTop } = this.props;
-    const { match } = this.props;
+      const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      };
 
-    const options = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
+      const tagList = articleData.tags.map((tag, index) => {
+        return (
+          <div className={classes.tag_grid} key={index}>
+            <NavLink to={`/search/?tags&tag=${tag}`} className={classes.tag} key={index} href={tag}>
+              {tag}
+            </NavLink>
+          </div>
+        );
+      });
+      const { rating, selectedText } = this.state;
+      const { showTextCommentBox, toggleOffTextCommentBox } = this.props;
 
-    const tagList = articleData.tags.map((tag, index) => {
       return (
-        <div className={classes.tag_grid} key={index}>
-          <NavLink to={`/search/?tags&tag=${tag}`} className={classes.tag} key={index} href={tag}>
-            {tag}
-          </NavLink>
-        </div>
-      );
-    });
-    const { rating, selectedText } = this.state;
-    const { showTextCommentBox, toggleOffTextCommentBox } = this.props;
-
-    return (
-      <Wrapper>
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              {!showLoader ? (
-                <center>
-                  <ArticleLoader />
-                </center>
-              ) : (
-                <div>
-                  <h5 className="text-center">Literature</h5>
-                  <h1 className={`text-center ${classes.articleTitle}`}>{articleData.title}</h1>
-                  <div
-                    className={showTextCommentBox
-                      ? classes.TextCommentSpan : classes.TextCommentSpanShowNone}
-                  >
-                    <TextComment articleSlug={match.params.slug} selected={selectedText} />
-                  </div>
-                  <div className={scrollTop > 363 ? classes.sticky : classes.LikeSpan}>
-                    <Like className={classes.LikeSpan} articleSlug={match.params.slug} />
-                    <SharingArticleComponent
-                      url={`https://authors-haven-front.herokuapp.com/articles/${
-                        match.params.slug
-                      }`}
-                      title={articleData.title}
-                    />
-                    <Bookmark
-                      className={classes.LikeSpan}
-                      favorited={articleData.favorited}
-                      articleSlug={match.params.slug} />
-                  </div>
-
-                  <div className={`col-10 ${classes.content_enter}`}>
-                    <span
-                      className={`col-12 text-center ${classes.capitalise} ${
-                        classes.spanDesAuthor
-                      }`}
-                    >
-                      {articleData.description}
-                    </span>
-                    <span
-                      className={`col-12 text-center ${classes.capitalise} ${
-                        classes.spanDesAuthor
-                      }`}
-                    >
-                      {articleData.author.username}
-                      &nbsp; | &nbsp;
-                      {new Date(articleData.created_at).toLocaleDateString('en-BR', options)}
-                      &nbsp; | &nbsp;
-                      <span className={`${classes.spanDesAuthor} ${classes.lowercase}`}>
-                        {this.readTime()}
-                        &nbsp; min read
-                      </span>
-                    </span>
-                    <br />
-                    <img
-                      src={articleData.image}
-                      alt=""
-                      className={`${classes.articleImage} ${classes.paragraph2}`}
-                    />
-                  </div>
-                  <div
-                    className={`col-10 text-justify ${classes.content_enter} ${
-                      classes.articleMetaData
-                    }`}
-                  >
+        <Wrapper>
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                {!showLoader ? (
+                  <center>
+                    <ArticleLoader />
+                  </center>
+                ) : (
+                  <div>
+                    <h5 className="text-center">Literature</h5>
+                    <h1 className={`text-center ${classes.articleTitle}`}>{articleData.title}</h1>
                     <div
-                    onDoubleClick={
-                      (event) => { event.stopPropagation(); toggleOffTextCommentBox(); }}>
-                      <div
-                    onMouseUp={(event) => this.selectText(event)}
-                    dangerouslySetInnerHTML={{ __html: articleData.body }} />
-                      <span className={`col-12 p-0 float-left ${classes.capitalise}`}>
-                        <b>Tags: </b>
-                        {tagList}
+                      className={showTextCommentBox
+                        ? classes.TextCommentSpan : classes.TextCommentSpanShowNone}
+                    >
+                      <TextComment articleSlug={match.params.slug} selected={selectedText} />
+                    </div>
+                    <div className={scrollTop > 363 ? classes.sticky : classes.LikeSpan}>
+                      <Like className={classes.LikeSpan} articleSlug={match.params.slug} />
+                      <SharingArticleComponent
+                        url={`https://authors-haven-front.herokuapp.com/articles/${
+                          match.params.slug
+                        }`}
+                        title={articleData.title}
+                      />
+                      <Bookmark
+                        className={classes.LikeSpan}
+                        favorited={articleData.favorited}
+                        articleSlug={match.params.slug} />
+                    </div>
+
+                    <div className={`col-10 ${classes.content_enter}`}>
+                      <span
+                          className={`col-12 text-center ${classes.capitalise} ${
+                            classes.spanDesAuthor
+                          }`}
+                        >
+                        {articleData.description}
                       </span>
-                      <div />
-                      <b>Average Rating: </b>
-                      {rating}
-                    </div>
-                    <div>
-                      <b>Rate this Article:</b>
-                    </div>
-                    <StarRatingComponent
-                      name="rate1"
-                      starCount={5}
-                      onStarClick={this.onStarClick}
-                      renderStarIcon={() => (
-                        <span>
-                          <i className="fa fa-star-o" />
+                      <span
+                          className={`col-12 text-center ${classes.capitalise} ${
+                            classes.spanDesAuthor
+                          }`}
+                        >
+                        {articleData.author.username}
+                          &nbsp; | &nbsp;
+                        {new Date(articleData.created_at).toLocaleDateString('en-BR', options)}
+                          &nbsp; | &nbsp;
+                        <span className={`${classes.spanDesAuthor} ${classes.lowercase}`}>
+                          {this.readTime()}
+                            &nbsp; min read
                         </span>
-                      )}
-                    />
-                    <div>
-                      <button
-                        className="btn btn-outline-dark"
-                        onClick={this.followAuthor}
-                        style={{ display: buttonStatus }}
-                      >
-                        {buttonText}
-                      </button>
+                      </span>
+                      <br />
+                      <img
+                          src={articleData.image}
+                          alt=""
+                          className={`${classes.articleImage} ${classes.paragraph2}`}
+                        />
                     </div>
-                  </div>
-                  <Recent />
-                  <CreateComment slug={match.params.slug} />
-                </div>
-              )}
+                    <div
+                      className={`col-10 text-justify ${classes.content_enter} ${
+                        classes.articleMetaData
+                      }`}
+                    >
+                      <div
+                      onDoubleClick={
+                        (event) => { event.stopPropagation(); toggleOffTextCommentBox(); }}>
+                        <div
+                      onMouseUp={(event) => this.selectText(event)}
+                      dangerouslySetInnerHTML={{ __html: articleData.body }} />
+                        <span className={`col-12 p-0 float-left ${classes.capitalise}`}>
+                          <b>Tags: </b>
+                          {tagList}
+                        </span>
+                        <div />
+                        <b>Average Rating: </b>
+                        {rating}
+                      </div>
+                      <div>
+                        <b>Rate this Article:</b>
+                      </div>
+                      <StarRatingComponent
+                          name="rate1"
+                          starCount={5}
+                          onStarClick={this.onStarClick}
+                          renderStarIcon={() => (
+                            <span>
+                              <i className="fa fa-star-o" />
+                            </span>
+                          )}
+                        />
+                      <div>
+                        <button
+                            className="btn btn-outline-dark"
+                            onClick={this.followAuthor}
+                            style={{ display: buttonStatus }}
+                          >
+                          {buttonText}
+                        </button>
+                      </div>
+                    </div>
+                    <Recent />
+                    <CreateComment slug={match.params.slug} />
+                  </div>)}
+              </div>
             </div>
           </div>
-        </div>
-      </Wrapper>
+        </Wrapper>
+      );
+    }
+    if (numArticles === 0 && showLoader) {
+      return (
+        <Error404 />
+      );
+    }
+    return (
+      <center>
+        <ArticleLoader />
+      </center>
     );
   }
 }
