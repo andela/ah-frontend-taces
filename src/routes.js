@@ -19,6 +19,7 @@ import { SearchGrid } from './containers/Search/SearchGrid';
 import ArticleDetail from './containers/Articles/ArticleDetail/ArticleDetail';
 import ArticleList from './containers/Articles/ArticleList/ArticleList';
 import TextCommentList from './containers/Articles/TextCommentList/TextCommentList';
+import Notifications from './containers/notifications/Notifications';
 
 const routes = (props) => {
   const { authStatus } = props;
@@ -35,6 +36,9 @@ const routes = (props) => {
             {authStatus ? <Route path="/profile/following" exact component={FollowGrid} /> : null}
             {authStatus ? <Route path="/profile/followers" exact component={FollowerGrid} /> : null}
             {authStatus ? <Route path="/search/:context/:value" exact component={SearchGrid} /> : null}
+            {authStatus ? <Route path="/notifications" exact component={Notifications} /> : null}
+            {authStatus ? <Route path="/profile/following" exact component={FollowGrid} /> : null}
+            {authStatus ? <Route path="/profile/followers" exact component={FollowerGrid} /> : null}
             <Route path="/" exact component={Home} />
             {authStatus
               ? <Route path="/articles/:slug" exact component={ArticleDetail} />

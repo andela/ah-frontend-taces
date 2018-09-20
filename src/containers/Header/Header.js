@@ -11,6 +11,7 @@ import {
   OPEN_MODAL_TO_LOGIN,
   OPEN_MODAL_TO_REGISTRATION,
 } from '../../store/actions/actionTypes';
+import NotificationIcon from '../notifications/NotificationIcon';
 
 const signOut = () => {
   localStorage.removeItem('token');
@@ -73,56 +74,53 @@ export class Header extends Component {
 
               {''}
             </h1>
-            {authStatus ? (
-              <div>
-                <a href="#" onClick={TOGGLE_PROFILE_ACTION}>
-                  <img
-                    src={localStorage.getItem('picture')}
-                    className={classes.profile_picture}
-                    alt="Cinque Terre"
-                    width="50"
-                    height="50"
-                  />
-                </a>
-                {ProfileDropdownState ? (
-                  <div className={classes.profile_drop_down}>
-                    <center>{localStorage.getItem('username')}</center>
-                    <div>
-                      <small>
-                        <center>{localStorage.getItem('email')}</center>
-                      </small>
+            {authStatus
+              ? (
+                <div className="row">
+                  <div className="col-md-6">
+                    <div id="ex4">
+                      <NavLink to="/notifications">
+                        <NotificationIcon />
+                      </NavLink>
                     </div>
-                    <div className="dropdown-divider" />
-                    <NavLink className="dropdown-item" to="/createArticle">
-                      New Article
-                    </NavLink>
-                    <a className="dropdown-item" href="#">
-                      Favourite Articles
-                    </a>
-                    <div className="dropdown-divider" />
-                    <NavLink className="dropdown-item" to={{ pathname: '/profile' }} exact>
-                      Profile
-                    </NavLink>
-                    <a className="dropdown-item" href="#">
-                      Settings
-                    </a>
-                    <div className="dropdown-divider" />
-                    <a className="dropdown-item" id="signOutLink" href="" onClick={signOut}>
-                      Sign Out
-                    </a>
                   </div>
-                ) : null}
-              </div>
-            ) : (
-              <div className={classes.bHeader}>
-                <button className={classes.button} onClick={clickSignin}>
-                  Sign In
-                </button>
-                <button className={classes.button} onClick={clickSignup}>
-                  Sign Up
-                </button>
-              </div>
-            )}
+                  <div className="col-md-6">
+                    <a href="#" onClick={TOGGLE_PROFILE_ACTION}>
+                      <img src={localStorage.getItem('picture')} className={classes.profile_picture} alt="Cinque Terre" width="50" height="50" />
+                    </a>
+                    {ProfileDropdownState
+                      ? (
+                        <div className={classes.profile_drop_down}>
+                          <center>{localStorage.getItem('username')}</center>
+                          <div><small><center>{localStorage.getItem('email')}</center></small></div>
+                          <div className="dropdown-divider" />
+                          <NavLink className="dropdown-item" to="/createArticle">New Article</NavLink>
+                          <a className="dropdown-item" href="#">Favourite Articles</a>
+                          <div className="dropdown-divider" />
+                          <NavLink className="dropdown-item" to={{ pathname: '/profile' }} exact>
+                        Profile
+                          </NavLink>
+                          <a className="dropdown-item" href="#">Settings</a>
+                          <div className="dropdown-divider" />
+                          <a className="dropdown-item" id="signOutLink" href="" onClick={signOut}>Sign Out</a>
+                        </div>
+                      )
+                      : null
+                  }
+                  </div>
+                </div>
+              )
+              : (
+                <div className={classes.bHeader}>
+                  <button className={classes.button} onClick={clickSignin}>
+            Sign In
+                  </button>
+                  <button className={classes.button} onClick={clickSignup}>
+            Sign Up
+                  </button>
+                </div>
+              )
+      }
           </div>
 
           <nav className="navbar navbar-expand-lg pl-0 pr-0">

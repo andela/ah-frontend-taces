@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  CLOSE_MODAL, LOGIN_START, LOGIN_FAIL, LOGIN_SUCCESS,
+  CLOSE_MODAL, LOGIN_START, LOGIN_FAIL, LOGIN_SUCCESS, TOGGLE_MUTE_NOTIFICATIONS,
 } from './actionTypes';
 
 const loginStart = () => {
@@ -39,6 +39,12 @@ const loginUser = data => {
         localStorage.setItem('username', response.data.user.username);
         localStorage.setItem('email', response.data.user.email);
         localStorage.setItem('picture', 'https://cdn0.iconfinder.com/data/icons/avatar-15/512/ninja-512.png');
+        localStorage.setItem('opt_in_for_notifications', response.data.user.opt_in_for_notifications);
+
+        // check if the person opted in for notifications
+        if (response.data.user.opt_in_for_notifications) {
+          dispatch({ type: TOGGLE_MUTE_NOTIFICATIONS });
+        }
 
         // dispatch an action to the success reducer method
         dispatch(loginSuccess(response));

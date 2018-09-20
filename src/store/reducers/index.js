@@ -10,6 +10,7 @@ import registerReducer from './registerReducer';
 import articleListReducer from './articleListReducer';
 import articleDetailReducer from './articleDetailReducer';
 import articleTextCommentReducer from './articleTextCommentReducer';
+import notificationReducer from './notificationReducer';
 
 // combine all reducers into one root reducer
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   articleList: articleListReducer,
   articleDetail: articleDetailReducer,
   articleTextComment: articleTextCommentReducer,
+  notifications: notificationReducer,
 });
 
 // creates a store
