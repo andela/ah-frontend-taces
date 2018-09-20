@@ -1,0 +1,73 @@
+.outer {
+  border: 1px solid #888;
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 1%;
+  text-align: -webkit-center;
+  border-radius: 5px;
+}
+.box {
+    margin-bottom: 20%;
+}
+
+.head {
+  border-bottom: 1px solid #dde1e4;
+  background-color: #999;
+}
+
+.read {
+  border: 1px solid #888;
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 1%;
+  text-align: -webkit-center;
+  border-radius: 5px;
+  background-color: #cccccc;
+}
+
+.notificationOuter {
+  background-color: #fff;
+  width: 32px;
+  margin-left: 48px;
+  margin-top: 12px;
+}
+
+.notificationsBadge {
+  position: absolute;
+  margin-top: -37px;
+  margin-left: 70px;
+}
+
+.mute {
+  color: #000;
+}
+.mute:hover {
+  color: #007bff;
+}
+.mute span {
+  margin-left: 648px;
+}
+
+.mute img {
+  position: absolute;
+  width: 20px;
+  margin-top: -32px;
+  margin-left: 71px;
+}
+
+.unmute {
+  color: #000;
+}
+.unmute:hover {
+  color: #007bff;
+}
+.unmute span {
+  margin-left: 639px;
+}
+
+.unmute img {
+  position: absolute;
+  width: 20px;
+  margin-top: -32px;
+  margin-left: 76px;
+}
