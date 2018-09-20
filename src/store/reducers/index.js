@@ -8,6 +8,8 @@ import authReducer from './loginReducer';
 import passwordResetReducer from './passwordResetReducer';
 import registerReducer from './registerReducer';
 import articleListReducer from './articleListReducer';
+import articleDetailReducer from './articleDetailReducer';
+import articleTextCommentReducer from './articleTextCommentReducer';
 
 // combine all reducers into one root reducer
 const rootReducer = combineReducers({
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   loading: passwordResetReducer,
   registration: registerReducer,
   articleList: articleListReducer,
+  articleDetail: articleDetailReducer,
+  articleTextComment: articleTextCommentReducer,
 });
 
 // creates a store

@@ -28,7 +28,27 @@
   position: fixed;
   left: 4%;
   top: 50vh;
-  z-index: 77px;
+  z-index: 77;
+}
+
+.TextCommentSpan {
+  position: fixed;
+  width: 25%;
+  background-color: white;
+  right: 0;
+  bottom: 0vh;
+  z-index: 99;
+  padding: 10px;
+  -webkit-box-shadow: 6px 8px 36px 0px rgba(0,0,0,0.48);
+  -moz-box-shadow: 6px 8px 36px 0px rgba(0,0,0,0.48);
+  box-shadow: 6px 8px 36px 0px rgba(0,0,0,0.48);  
+  transform: translateY(0);
+  transition: all 0.5s ease-out;
+}
+
+.TextCommentSpanShowNone {
+  display: none;
+  transform: translateY(-100vh)
 }
 
 .sticky {

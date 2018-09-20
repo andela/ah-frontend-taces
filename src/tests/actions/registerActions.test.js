@@ -11,8 +11,8 @@ const reqData = {
     username: 'testandelauser',
     email: 'test.user@andela.com',
     password: 'iamsecret#',
-    callbackurl: 'http://some_call_back_url.com'
-  }
+    callbackurl: 'http://some_call_back_url.com',
+  },
 };
 
 describe('Register user axios call', () => {
@@ -27,7 +27,7 @@ describe('Register user axios call', () => {
   it('should start registration and end with success', () => {
     moxios.stubRequest('https://authors-haven-tabs.herokuapp.com/api/users/', {
       status: 201,
-      response: reqData
+      response: reqData,
     });
 
     const expectedActions = [
@@ -53,7 +53,7 @@ describe('Register user axios call', () => {
   it('should start registration and end with failure when improper data is provided', () => {
     moxios.stubRequest('https://authors-haven-tabs.herokuapp.com/api/users/', {
       status: 400,
-      response: {}
+      response: {},
     });
 
     const expectedActions = [{ type: 'REGISTRATION_START' }, { type: 'REGISTRATION_FAILURE' }];

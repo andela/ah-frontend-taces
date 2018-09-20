@@ -17,6 +17,7 @@ import Error404Handler from './containers/ErrorHandlers/Error404Handler/Error404
 
 import ArticleDetail from './containers/Articles/ArticleDetail/ArticleDetail';
 import ArticleList from './containers/Articles/ArticleList/ArticleList';
+import TextCommentList from './containers/Articles/TextCommentList/TextCommentList';
 
 const routes = (props) => {
   const { authStatus } = props;
@@ -49,6 +50,10 @@ const routes = (props) => {
             }
             {authStatus
               ? <Route path="/profile/followers" exact component={FollowerGrid} />
+              : <Route path="/profile/followers" exact component={Error403Handler} />
+            }
+            {authStatus
+              ? <Route path="/articles/:slug/text-comments" component={TextCommentList} />
               : <Route path="/profile/followers" exact component={Error403Handler} />
             }
             <Route component={Error404Handler} />
