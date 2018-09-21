@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import _ from 'underscore';
 import classes from '../../CSS/Like.css';
 
 class Bookmark extends Component {
@@ -31,7 +30,6 @@ class Bookmark extends Component {
       })
       .then(() => {
         this.setState({ isfavorited: true });
-        this.manageBookmarkLocalStorage();
       });
   };
 
@@ -47,7 +45,6 @@ class Bookmark extends Component {
         this.setState({
           isfavorited: false,
         });
-        this.manageBookmarkLocalStorage();
       });
   };
 
@@ -71,38 +68,6 @@ class Bookmark extends Component {
       this.removeBookmark();
     }
   };
-
-  manageBookmarkLocalStorage = () => {
-    const { articleSlug } = this.props;
-    const email = localStorage.getItem('email');
-    const currentSlug = articleSlug.toString();
-    const uniqueId = email + currentSlug;
-    const bookmarkObj = {
-      slug: currentSlug,
-      user: email,
-      objectId: uniqueId,
-    };
-
-    if (localStorage.getItem('bookmarks') === null) {
-      const bookmarks = [];
-      bookmarks.push(bookmarkObj);
-      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-    } else {
-      const bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
-      const me = Object.keys(bookmarks).some((key) => {
-        return bookmarks[key].objectId === uniqueId;
-      });
-      const slugIndex = _.findIndex(bookmarks, { objectId: uniqueId });
-      if (!me === true && slugIndex < 0) {
-        bookmarks.push(bookmarkObj);
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-      } else {
-        bookmarks.splice(slugIndex, 1);
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-      }
-    }
-  }
-
 
   render() {
     const {

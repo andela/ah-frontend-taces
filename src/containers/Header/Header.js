@@ -97,7 +97,9 @@ export class Header extends Component {
                           <div><small><center>{localStorage.getItem('email')}</center></small></div>
                           <div className="dropdown-divider" />
                           <NavLink className="dropdown-item" to="/createArticle">New Article</NavLink>
-                          <a className="dropdown-item" href="#">Favourite Articles</a>
+                          <NavLink className="dropdown-item" to={{ pathname: '/bookmarks/articles' }} exact>
+                            Favourite Articles
+                          </NavLink>
                           <div className="dropdown-divider" />
                           <NavLink className="dropdown-item" to={{ pathname: '/profile' }} exact>
                         Profile
