@@ -222,6 +222,14 @@ export class ArticleDetail extends Component {
                           {this.readTime()}
                             &nbsp; min read
                         </span>
+                          &nbsp; | &nbsp;
+                        <span className={`${classes.spanDesAuthor}`}>
+                          <span className="fa fa-eye" />
+                          &nbsp;
+                          {articleData.viewsCount}
+                          &nbsp;
+                          views
+                        </span>
                       </span>
                       <br />
                       <img
