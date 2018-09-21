@@ -44,7 +44,7 @@ export const fetchArticles = (page, items) => {
         },
       )
       .then(res => {
-        if (items.length + 5 <= res.data.results.count) {
+        if (items.length + 1 <= res.data.results.count) {
           dispatch(startfetchArticles(res.data.results.articles));
         } else {
           dispatch(endFetchArticles());

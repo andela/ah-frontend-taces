@@ -9,8 +9,7 @@ import { fetchArticles } from '../../../store/actions/articleListActions';
 
 export class ArticleList extends Component {
   componentDidMount() {
-    const { onFetchArticles, page, items } = this.props;
-    onFetchArticles(page, items);
+    this.LoadMoreArticles();
   }
 
   LoadMoreArticles = () => {
