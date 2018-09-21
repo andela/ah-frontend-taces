@@ -37,6 +37,7 @@ export class ArticleDetail extends Component {
       selectedText: '',
       numArticles: 0,
       popoverIsOpen: false,
+      showLoader: false,
     };
     this.onStarClick = this.onStarClick.bind(this);
   }
@@ -77,8 +78,10 @@ export class ArticleDetail extends Component {
     if (articlesArray.count > 0) {
       this.handleResponse('articleData', articlesArray.articles[0]);
       this.handleResponse('numArticles', articlesArray.count);
+      this.handleResponse('showLoader', true);
     } else {
       this.handleResponse('numArticles', articlesArray.count);
+      this.handleResponse('numArticles', false);
     }
   });
 
@@ -86,9 +89,8 @@ export class ArticleDetail extends Component {
     return this.setState(
       {
         [key]: value,
-        showLoader: true,
       },
-      this.hideButton,
+      this.hideButton(),
     );
   };
 
@@ -242,8 +244,10 @@ export class ArticleDetail extends Component {
                       <Bookmark
                         className={classes.LikeSpan}
                         favorited={articleData.favorited}
-                        articleSlug={match.params.slug}
-                      />
+                        authorUsername={articleData.author.username}
+                        articleImage={articleData.image}
+                        articleTitle={articleData.title}
+                        articleSlug={match.params.slug} />
                     </div>
 
                     <div className={`col-10 ${classes.content_enter}`}>
@@ -345,13 +349,15 @@ export class ArticleDetail extends Component {
         </Wrapper>
       );
     }
-    if (numArticles === 0 && showLoader) {
-      return <Error404 />;
+    if (numArticles === 0 && showLoader === false) {
+      return (
+        <center>
+          <ArticleLoader />
+        </center>
+      );
     }
     return (
-      <center>
-        <ArticleLoader />
-      </center>
+      <Error404 />
     );
   }
 }
