@@ -17,6 +17,7 @@ import Error404Handler from './containers/ErrorHandlers/Error404Handler/Error404
 
 import ArticleDetail from './containers/Articles/ArticleDetail/ArticleDetail';
 import ArticleList from './containers/Articles/ArticleList/ArticleList';
+import Bookmarks from './containers/Bookmarks/Bookmarks';
 
 const routes = (props) => {
   const { authStatus } = props;
@@ -36,12 +37,16 @@ const routes = (props) => {
               : <Route path="/createArticle" exact component={Error403Handler} />
             }
             {authStatus
-              ? <Route path="/profile" exact component={Profile} />
-              : <Route path="/profile" exact component={Error403Handler} />
-            }
-            {authStatus
               ? <Route path="/articles" exact component={ArticleList} />
               : <Route path="/articles" exact component={Error403Handler} />
+            }
+            {authStatus
+              ? <Route path="/bookmarks/articles" exact component={Bookmarks} />
+              : <Route path="/bookmarks/articles" exact component={Error403Handler} />
+            }
+            {authStatus
+              ? <Route path="/profile" exact component={Profile} />
+              : <Route path="/profile" exact component={Error403Handler} />
             }
             {authStatus
               ? <Route path="/profile/following" exact component={FollowGrid} />
