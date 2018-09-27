@@ -51,3 +51,7 @@ h4 {
   color: black;
   background: rgb(255, 255, 255);
 }
+
+body {
+  height: 100vh;
+}
