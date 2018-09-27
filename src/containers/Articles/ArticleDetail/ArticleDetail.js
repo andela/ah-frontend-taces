@@ -159,7 +159,7 @@ export class ArticleDetail extends Component {
       const tagList = articleData.tags.map((tag, index) => {
         return (
           <div className={classes.tag_grid} key={index}>
-            <NavLink to={`/search/?tags&tag=${tag}`} className={classes.tag} key={index} href={tag}>
+            <NavLink to={`/search/tag/${tag}`} className={classes.tag} key={index}>
               {tag}
             </NavLink>
           </div>
@@ -250,7 +250,7 @@ export class ArticleDetail extends Component {
                       onMouseUp={(event) => this.selectText(event)}
                       dangerouslySetInnerHTML={{ __html: articleData.body }} />
                         <span className={`col-12 p-0 float-left ${classes.capitalise}`}>
-                          <b>Tags: </b>
+                          <b>Tags:&nbsp; </b>
                           {tagList}
                         </span>
                         <div />
